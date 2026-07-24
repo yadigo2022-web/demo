@@ -1,0 +1,188 @@
+
+/* ----------------------------
+   左の目次
+---------------------------- */
+
+#toc{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 220px;
+    height: 100vh;
+
+    background: #f4f4f4;
+    border-right: 1px solid #ccc;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    overflow-y: auto;
+}
+
+/* ----------------------------
+   右サイドバー
+---------------------------- */
+
+#toc2{
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 220px;
+    height: 100vh;
+
+    background: #ffffff;
+    border-left: 1px solid #ccc;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    overflow-y: auto;
+}
+
+/* ----------------------------
+   タイトル
+---------------------------- */
+
+#toc h2,
+#toc2 h2{
+    margin-top: 0;
+    text-align: center;
+}
+
+/* ----------------------------
+   本文の見出し
+---------------------------- */
+
+#content h2{
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 8px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* ----------------------------
+   左目次リンク
+---------------------------- */
+
+#toc a{
+    display: block;
+    padding: 10px;
+
+    text-decoration: none;
+    color: black;
+
+    border-radius: 5px;
+
+    transition: background-color 0.2s;
+}
+
+#toc a:hover{
+    background: #dcdcdc;
+}
+
+/* ----------------------------
+   本文
+---------------------------- */
+
+#content{
+    margin-left: 260px;
+    margin-right: 260px;
+
+    padding: 30px;
+}
+
+/* ----------------------------
+   ホームボタン
+---------------------------- */
+
+#toc a#home{
+    position: fixed;
+
+    left: 30px;
+    bottom: 30px;
+
+    width: 160px;              /* 幅を固定 */
+    box-sizing: border-box;
+
+    display: block;
+    text-align: center;
+
+    padding: 12px 0;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    color: white;
+    background: #0078d7;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+    transition: background-color 0.2s,
+    transform 0.2s;
+}
+
+#toc a#home:hover{
+    background: #005fa3;
+    transform: translateY(-2px);
+}
+
+/* ----------------------------
+   トップへ戻るボタン
+---------------------------- */
+
+#topButton{
+    position: fixed;
+
+    right: 30px;
+    bottom: 30px;
+
+    padding: 12px 18px;
+
+    font-size: 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #0078d7;
+    color: white;
+
+    cursor: pointer;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+
+    transition: background-color 0.2s;
+}
+
+#topButton:hover{
+    background: #005fa3;
+}
+
+/* ----------------------------
+   右サイドバー内の文字サイズ設定
+---------------------------- */
+
+#fontSetting{
+    margin-top: 20px;
+}
+
+#fontSetting label{
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#fontSetting select{
+    width: 100%;
+    padding: 8px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    box-sizing: border-box;
+}

@@ -1,0 +1,750 @@
+body{
+
+    margin:0;
+
+    display:grid;
+    justify-content: center;
+    align-items: center;
+
+
+    grid-template-columns:150px 850px 270px;
+    gap: 1px;
+
+    grid-template-areas:
+        "toc1 content toc2";
+
+    min-height:100vh;
+
+}
+.main-container {
+    padding: 10px;
+    width: 1350px;
+    /* 枠線の太さをサイズの中に含める */
+    box-sizing: border-box;
+
+    /* 5pxの黒い外枠 */
+    border: 1px solid #9a9a9a;
+    background-color: #ffffff; /* 中身の背景は白 */
+
+    /* 💡 3カラム（150px + 850px + 270px）を並べるグリッド */
+    display: grid;
+    /* gap（1px）を含めてぴったり収まる横幅（計1272px） */
+    grid-template-columns: 150px 850px 270px;
+    gap: 1px;
+
+    /* 💡 HTMLの記述順に合わせてエリアを対応させる */
+    grid-template-areas:
+        "toc1 content toc2";
+}
+
+/*====================================
+  キャンバス
+====================================*/
+
+canvas{
+    grid-area:canvas;
+    display:block;
+    margin:30px auto;
+    border:1px solid #000;
+}
+
+/*====================================
+  メインコンテンツ
+====================================*/
+
+#content{
+    grid-area:content;
+    justify-content: center;
+
+    display:grid;
+
+    grid-template-columns:180px 400px 180px;
+    grid-template-rows:
+        500px      /* 上段 */
+        300px;      /* 下段 */
+
+    grid-template-areas:
+        "canvas canvas canvas"
+        "toc3 toc5 toc4";
+    background: white;
+}
+/*====================================
+  左サイドバー
+====================================*/
+
+#toc1{
+    grid-area:toc1;
+
+
+    padding:1px;
+    /*box-sizing:border-box;*/
+
+   background: white;
+   /*border-left:1px solid #ccc;*/
+
+    /*overflow-y:auto;*/
+}
+
+#toc h2{
+    margin:0 0 20px;
+}
+
+/* 背景 */
+.modal,
+.modal2{
+    display:none;
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.5);
+}
+
+/* 白い四角 */
+.modal-content{
+
+    background: white;
+
+    width:400px;
+
+    margin:100px auto;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    position:relative;
+}
+
+#helpButton1,
+#helpButton2,
+#helpButton3,
+#helpButton4,
+#helpButton5{
+    background: none;
+    border: none;
+
+    padding: 0;
+
+    font-size: 16px;
+    color: black;
+    text-align: left;
+
+    cursor: pointer;
+
+    border-bottom: 2px solid #888888;
+}
+
+
+/* ×ボタン */
+#close,
+#close2{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+
+    width: 30px;
+    height: 30px;
+
+    border: 2px solid #333;
+    border-radius: 5px;   /* 少し角を丸くする（不要なら削除） */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 28px; /*バツ印のサイズ*/
+    cursor: pointer;
+
+    background: white;
+}
+
+
+/*====================================
+  右サイドバー
+====================================*/
+
+#toc2{
+    grid-area: toc2;
+    position:static;
+
+
+
+    padding:1px;
+    box-sizing:border-box;
+
+    background: white;
+    /*border-left:1px solid #ccc;*/
+
+    overflow-y:auto;
+}
+
+#toc2 h2{
+    margin:0 0 20px;
+}
+
+#toc2 button{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    font-size:16px;
+}
+
+
+/*====================================
+  toc3
+====================================*/
+
+#toc3{
+    grid-area: toc3;
+    position:static;
+
+
+
+    box-sizing:border-box;
+
+    background: white;
+
+    overflow-y:auto;
+}
+
+#toc3 h2{
+    margin:0 0 20px;
+}
+
+
+#toc3 .inputGroup{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#toc3 .inputGroup label{
+    width: 60px;
+}
+
+#toc3 .inputGroup input{
+    flex: 1;
+}
+
+#toc3 #floor{
+    width:100px;
+    height:35px;
+}
+
+
+/*====================================
+  toc4
+====================================*/
+
+#toc4{
+    grid-area: toc4;
+    position:static;
+
+
+    box-sizing:border-box;
+
+    background: white;
+
+    overflow-y:auto;
+}
+
+#toc4 h2{
+    margin:0 0 20px;
+}
+
+
+#toc4 .inputGroup{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#toc4 .inputGroup label{
+    width: 80px;
+}
+
+#toc4 .inputGroup input{
+    flex: 1;
+}
+
+#toc4 #damping{
+    width:100px;
+    height:35px;
+}
+
+/*====================================
+  toc5
+====================================*/
+
+#toc5{
+    grid-area: toc5;
+    position:static;
+
+
+    box-sizing:border-box;
+
+    background: white;
+
+    overflow-y:auto;
+}
+
+
+
+/* ----------------------------
+   本文
+---------------------------- */
+
+#content{
+    margin-left: 30px;
+    margin-right: 30px;
+
+    padding: 1px;
+}
+
+/*====================================
+  パラメータ入力
+====================================*/
+
+#parameterArea{
+    width:700px;
+    margin:40px auto;
+    background: #ffc1c1;
+}
+
+/* 建物全体 */
+
+.parameterTop{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+
+    padding:20px;
+    margin-bottom:30px;
+
+    border:1px solid #ddd;
+    border-radius:10px;
+    background:#fafafa;
+}
+
+/* 入力グループ */
+
+.inputGroup{
+    display:flex;
+    flex-direction:column;
+    text-align:left;
+}
+
+.inputGroup label{
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+.inputGroup input,
+.inputGroup select{
+    padding:8px;
+    font-size:15px;
+}
+
+/* チェックボックス */
+.inputGroup input[type="checkbox"]{
+    margin-right:8px;
+}
+
+#lock{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+/* 読み込みボタン */
+#loadCsv{
+    grid-column:1 / -1;
+
+    padding:10px;
+    font-size:16px;
+}
+
+/*====================================
+  階ごとの入力欄
+====================================*/
+#floorParameters{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.floorLabel{
+    text-align:center;
+    font-weight:bold;
+}
+
+.massInput,
+.stiffnessInput{
+    width:100%;
+    padding:8px;
+    box-sizing:border-box;
+}
+
+.parameterHeader,
+.parameterRow{
+    display:grid;
+    grid-template-columns:90px 120px 120px;
+    gap:15px;
+    align-items:center;
+}
+
+.parameterHeader{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.parameterRow input{
+    width:100px;
+    box-sizing:border-box;
+}
+
+/*====================================
+  サイドバーのボタン
+====================================*/
+
+#start,
+#reset,
+#start1{
+    font-size:16px;
+}
+
+/*====================================
+  ホームボタン
+====================================*/
+#home1{
+    position:fixed;
+
+    left:30px;
+    bottom:30px;
+
+    width:170px;
+    padding:12px 0;
+
+    font-size:26px;
+
+    display:block;
+    text-align:center;
+
+    color:#fff;
+    background:#0078d7;
+
+    font-weight:bold;
+    text-decoration:none;
+
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+
+    transition:0.2s;
+}
+
+#home1:hover{
+    background:#005fa3;
+    transform:translateY(-2px);
+}
+
+#loading {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(255,255,255,0.8);
+
+    z-index: 9999;
+
+    text-align: center;
+
+    padding-top: 200px;
+
+    font-size: 20px;
+}
+
+
+.loader {
+
+    margin: auto;
+
+    width: 50px;
+    height: 50px;
+
+    border: 6px solid #ddd;
+
+    border-top: 6px solid #333;
+
+    border-radius: 50%;
+
+    animation: spin 1s linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+}
+
+/* ==========================
+   入力エラーダイアログ
+========================== */
+
+#errorModal{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.5);
+
+    z-index:9999;
+}
+
+.modalContent{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:350px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:10px;
+
+    text-align:center;
+}
+
+/* 全画面を覆う */
+#loading{
+    display:none;
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.4);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+}
+
+/* 真ん中のボックス */
+.loadingBox{
+
+    width:400px;
+    padding:35px;
+
+    background:#d8d8d8;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+/* バーの外枠 */
+.progress{
+
+    width:100%;
+    height:18px;
+
+    background:#555;
+
+    overflow:hidden;
+
+    border-radius:3px;
+}
+
+
+/* 背景 */
+#loading2{
+    display:none;
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+
+
+    background:rgba(0,0,0,0.65);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+}
+
+/* 真ん中 */
+.loadingBox{
+    background:white;
+    text-align:center;
+}
+
+/* 回転する円 */
+.spinner{
+
+    width:80px;
+    height:80px;
+
+    border:10px solid #666;
+    border-top:10px solid #919191;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin:auto;
+}
+
+/* 文字 */
+.loadingBox p{
+
+    margin-top:25px;
+
+    color: #0b0b0b;
+
+    font-size:28px;
+
+    font-family:Arial, sans-serif;
+}
+
+@keyframes spin{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* 解析終了 */
+#complete{
+    display:none;
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(255,255,255,0.8);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:10000;
+}
+
+.completeBox{
+
+    width:380px;
+
+    padding:40px;
+
+    background:white;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.25);
+}
+
+.check{
+
+    width:90px;
+    height:90px;
+
+    margin:0 auto 25px;
+
+    border-radius:50%;
+
+    background:#4CAF50;
+
+    color:white;
+
+    font-size:60px;
+
+    line-height:90px;
+
+    font-weight:bold;
+}
+
+.completeBox h2{
+
+    margin-bottom:35px;
+
+    color:#333;
+
+    font-size:28px;
+}
+
+#okButton{
+
+    width:120px;
+    height:45px;
+
+    font-size:18px;
+
+    border:none;
+
+    border-radius:6px;
+
+    background:#2196F3;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+#okButton:hover{
+
+    background:#1976D2;
+}
+

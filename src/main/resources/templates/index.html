@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>地震応答解析</title>
+
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="main-container">
+
+    <!-- ==========================
+         右サイドバー
+    ========================== -->
+    <aside id="toc1">
+        <h2>使い方</h2>
+
+        <button id="helpButton1">①パラメータ入力</button>
+
+        <div id="modal" class="modal">
+
+            <div class="modal-content">
+
+                <span id="close">&times;</span>
+
+                <h2>使い方</h2>
+
+                <p>
+                    階数を入力します。<br>
+                    整数以外を入力すると解析の際にエラーになります。
+                </p>
+
+                <a href="/csv/samplewave.csv" download class="download-btn">
+                    CSVをダウンロード
+                </a>
+
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <button id="helpButton2">②地震波を設定する</button>
+
+        <div id="modal2" class="modal">
+
+            <div class="modal-content">
+
+                <span id="close2">&times;</span>
+
+                <h2>使い方</h2>
+
+                <p>
+                    階数を入力します。<br>
+                    整数以外を入力すると解析の際にエラーになります。
+                </p>
+
+            </div>
+        </div>
+
+        <br><br>
+
+
+
+        <button id="helpButton3">③解析を実行する</button>
+
+        <div id="modal3" class="modal">
+
+            <div class="modal-content">
+
+                <span id="close3">&times;</span>
+
+                <h2>使い方</h2>
+
+                <p>
+                    階数を入力します。<br>
+                    整数以外を入力すると解析の際にエラーになります。
+                </p>
+
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <button id="helpButton4">④解析結果を見る</button>
+
+        <div id="modal4" class="modal">
+
+            <div class="modal-content">
+
+                <span id="close4">&times;</span>
+
+                <h2>使い方</h2>
+
+                <p>
+                    階数を入力します。<br>
+                    整数以外を入力すると解析の際にエラーになります。
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <br><br>
+
+        <button id="helpButton5">⑤解析結果を出力</button>
+
+        <div id="modal5" class="modal">
+
+            <div class="modal-content">
+
+                <span id="close5">&times;</span>
+
+                <h2>使い方</h2>
+
+                <p>
+                    階数を入力します。<br>
+                    整数以外を入力すると解析の際にエラーになります。
+                </p>
+
+            </div>
+
+        </div>
+        <br><br>
+        <a href="/menu" >⌂</a>
+
+
+
+
+
+
+
+
+    </aside>
+    <!-- ==========================
+         右サイドバー
+    ========================== -->
+    <aside id="toc2">
+
+        <h2>② 地震波を設定する</h2>
+        <div class="inputGroup">
+            <label id="earthquakeLabel" for="input seismic wave">
+                地震波を選択
+            </label>
+            <select id="input seismic wave">
+                <option>El Centro</option>
+                <option>Taft</option>
+                <option>Hachinohe</option>
+            </select>
+
+        <br><br>
+
+            <label for="csvFile">
+                <input type="checkbox" id="lock">
+                CSVファイルで地震波を入力
+            </label>
+
+            <input
+                    type="file"
+                    id="csvFile"
+                    accept=".csv"
+                    disabled>
+        </div>
+
+        <br><br>
+        <br><br>
+
+        <h2>③ 解析を実行する</h2>
+        <button id="start">▷</button>
+
+        <br><br>
+
+        <h2>④ 解析結果を見る</h2>
+        <button id="look"> ∿∿∿∿∿∿∿ </button>
+    　　
+        <br><br>
+            　
+        <h2>⑤ 解析結果を出力</h2>
+        <input type="text" id="fileName" placeholder="ファイル名">
+
+        <button onclick="downloadCsv()">
+            ダウンロード
+        </button>
+
+    </aside>
+
+
+    <!-- ==========================
+         メインコンテンツ
+    ========================== -->
+    <main id="content">
+
+        <canvas id="canvas" width="700" height="400"></canvas>
+
+        <!-- toc3 -->
+        <section id="toc3">
+            <div class="inputGroup">
+                <label for="floor">階数</label>
+                <input
+                        type="number"
+                        id="floor"
+                        min="1"
+                        step="1"
+                        value="1">
+            </div>
+        </section>
+
+        <!-- toc4 -->
+        <section id="toc4">
+            <div class="inputGroup">
+                <label for="damping">減衰定数</label>
+                <input
+                        type="number"
+                        id="damping"
+                        step="0.01"
+                        min="0"
+                        value="0.02">
+            </div>
+        </section>
+
+        <!-- toc5 -->
+        <section id="toc5">
+            <div id="floorParameters"></div>
+        </section>
+
+
+
+
+    <div id="loading">
+        <div class="loader"></div>
+        <p>解析中...</p>
+    </div>
+
+    <div id="complete">
+
+        <div class="completeBox">
+
+            <div class="check">✓</div>
+
+            <h2>解析が完了しました</h2>
+
+            <button id="okButton">OK</button>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="errorModal">
+
+        <div class="modalContent">
+
+            <h2>入力エラー</h2>
+
+            <p id="errorText"></p>
+
+            <button id="errorOk">OK</button>
+
+        </div>
+
+    </div>
+
+
+    </main>
+    <!-- ホームボタン -->
+    <!--<a href="/menu" id="home1">⌂</a>-->
+
+
+    <div id="loading2">
+        <div class="loadingBox">
+
+            <div class="spinner"></div>
+
+            <p>解析中...</p>
+
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</div>
+</body>
+</html>

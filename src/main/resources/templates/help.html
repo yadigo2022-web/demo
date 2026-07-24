@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>時刻歴応答解析</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="stylesheet" href="/css/style2.css">
+</head>
+
+<body>
+
+<!-- 左側の目次 -->
+<nav id="toc">
+    <h2>目次</h2>
+
+    <a href="#howto">使用方法</a>
+    <a href="#model">モデル化方法</a>
+    <a href="#period">固有周期</a>
+    <a href="#mass">有効質量比</a>
+    <a href="#sankou">参考文献</a>
+
+    <br><br>
+
+    　　<a href="/menu" id="home">ホームに戻る</a>
+
+</nav>
+
+<!-- 本文 -->
+<div id="content">
+
+    <h1 id="top">時刻歴応答解析</h1>
+
+    <h2 id="howto">時刻歴応答解析とは</h2>
+
+    <p>
+        時刻歴応答解析（Time History Analysis）は、地震波を時間の経過に沿って建物へ入力し、各時刻における建物の応答を求める解析手法です。<br>
+
+        <img src="/images/1.png" width="200"><br><br>
+
+        説明はこちらです。
+    </p>
+
+    <p>F = ma</p>
+
+    <p>x = A sin(ωt)</p>
+
+    <p>ω = √(k/m)</p>
+
+    <h2 id="model">モデル化方法</h2>
+
+    <p>
+        実際の建物は柱や梁、壁など多くの部材で構成されており、
+        そのままでは建物全体の揺れを理解したり計算したりすることが難しくなります。
+        そこで、地震応答解析では建物を「質点」と「ばね」を用いた
+        シンプルなモデルに置き換えて解析を行います。
+    </p>
+
+    <p>
+        \[
+        m\ddot{x}+c\dot{x}+kx=f(t)
+        \]
+    </p>
+
+    <h2>1質点系の時刻歴応答解析</h2>
+
+    <p>
+        時刻歴応答解析では、運動方程式を解析的に解くことが困難なため、
+        時間刻み \(\Delta t\) ごとに応答を逐次計算する数値積分法を用います。
+    </p>
+    <p>
+        本プログラムでは、時刻 \(t_i\) における変位・速度・加速度から、
+        次時刻 \(t_{i+1}\) の応答を以下の式により求めています。
+    </p>
+    <p>
+        次時刻の加速度
+    </p>
+    <p>
+        \[
+        \ddot{y}_{i+1}
+        =
+        -
+        \frac{
+        \ddot{y}_{g,i}
+        +
+        2h\omega
+        \left(
+        \dot{y}_i
+        +
+        \frac{\Delta t}{2}\ddot{y}_i
+        \right)
+        +
+        \omega^2
+        \left(
+        y_i
+        +
+        \dot{y}_i\Delta t
+        +
+        \frac{\Delta t^2}{4}\ddot{y}_i
+        \right)
+        }
+        {
+        1
+        +
+        h\omega\Delta t
+        +
+        \frac{\omega^2\Delta t^2}{4}
+        }
+        \]
+    </p>
+
+    <p>
+        次時刻の速度
+    </p>
+
+    <p>
+        \[
+        \dot{y}_{i+1}
+        =
+        \dot{y}_i
+        +
+        \frac{\Delta t}{2}
+        \left(
+        \ddot{y}_i
+        +
+        \ddot{y}_{i+1}
+        \right)
+        \]
+    </p>
+
+    <p>
+        次時刻の変位
+    </p>
+
+    <p>
+        \[
+        y_{i+1}
+        =
+        y_i
+        +
+        \dot{y}_i\Delta t
+        +
+        \frac{\Delta t^2}{4}
+        \left(
+        \ddot{y}_i
+        +
+        \ddot{y}_{i+1}
+        \right)
+        \]
+    </p>
+
+    <p>
+        この計算を地震波データの全時刻について繰り返すことで、
+        建物の変位・速度・加速度の時刻歴応答を求めます。
+    </p>
+
+
+
+    <h2 id="period">固有値解析</h2>
+    <h3>固有値解析</h3>
+
+    <p>
+        固有値解析（Eigenvalue Analysis）は、構造物が本来もっている振動の性質を求める解析手法です。
+        固有値解析を行うことで、建物の<b>固有振動数</b>、<b>固有周期</b>、<b>固有モード</b>を求めることができます。
+    </p>
+
+    <p>
+        多自由度質点系の自由振動は、次の運動方程式で表されます。
+    </p>
+
+    <p>
+        \[
+        \mathbf{M}\ddot{\mathbf{x}}
+        +
+        \mathbf{K}\mathbf{x}
+        =
+        \mathbf{0}
+        \]
+    </p>
+
+    <p>
+        ここで、
+    </p>
+
+    <ul>
+        <li>\(\mathbf{M}\)：質量行列</li>
+        <li>\(\mathbf{K}\)：剛性行列</li>
+        <li>\(\mathbf{x}\)：変位ベクトル</li>
+    </ul>
+
+    <p>
+        とします。
+    </p>
+
+    <p>
+        自由振動の解を
+    </p>
+
+    <p>
+        \[
+        \mathbf{x}
+        =
+        \boldsymbol{\phi}
+        \sin(\omega t)
+        \]
+    </p>
+
+    <p>
+        と仮定すると、
+    </p>
+
+    <p>
+        \[
+        \left(
+        \mathbf{K}
+        -
+        \omega^2
+        \mathbf{M}
+        \right)
+        \boldsymbol{\phi}
+        =
+        \mathbf{0}
+        \]
+    </p>
+
+    <p>
+        が得られます。
+    </p>
+
+    <p>
+        非自明解が存在する条件より、
+    </p>
+
+    <p>
+        \[
+        \left|
+        \mathbf{K}
+        -
+        \omega^2
+        \mathbf{M}
+        \right|
+        =
+        0
+        \]
+    </p>
+
+    <p>
+        を満たす固有値を求めます。
+    </p>
+
+    <p>
+        得られた固有値 \(\omega^2\) から、固有円振動数および固有周期は次式で計算されます。
+    </p>
+
+    <p>
+        固有円振動数
+    </p>
+
+    <p>
+        \[
+        \omega
+        =
+        \sqrt{\lambda}
+        \]
+    </p>
+
+    <p>
+        固有振動数
+    </p>
+
+    <p>
+        \[
+        f
+        =
+        \frac{\omega}{2\pi}
+        \]
+    </p>
+
+    <p>
+        固有周期
+    </p>
+
+    <p>
+        \[
+        T
+        =
+        \frac{2\pi}{\omega}
+        \]
+    </p>
+
+    <p>
+        また、各固有値に対応する固有ベクトル
+        \(\boldsymbol{\phi}\)
+        は<b>固有モード（モード形状）</b>と呼ばれ、
+        各振動モードにおける建物の変形形状を表します。
+    </p>
+
+    <p>
+        固有値解析によって得られた固有周期および固有モードは、
+        モード重畳法や応答スペクトル法などの地震応答解析の基礎データとして利用されます。
+    </p>
+
+    <p>
+        固有周期とは、物体や構造物が一度揺れ始めたときに、
+        1回揺れるのにかかる時間のことです。
+        単位は秒（s）で表されます。
+        質量が大きいほど揺れはゆっくりになり、固有周期は長くなります。
+        一方、剛性が大きいほど揺れは速くなり、固有周期は短くなります。
+        地震では、地面の揺れの周期と建物の固有周期が近いと、
+        揺れが大きくなる「共振」が起こることがあります。
+        そのため、建物の安全性を評価するうえで固有周期は非常に重要な指標となります。
+    </p>
+
+    <p>
+        \[
+        T = 2\pi\sqrt{\frac{m}{k}}
+        \]
+    </p>
+
+    <h3>刺激係数（Participation Factor）</h3>
+
+    <p>
+        地震時には、すべての固有モードが同じ大きさで励起されるわけではありません。
+        各モードが地震動によってどの程度励起されるかを表す指標を<b>刺激係数</b>（Participation Factor）といいます。
+    </p>
+
+    <p>
+        第 <i>i</i> モードの刺激係数は、次式で求められます。
+    </p>
+
+    <p>
+        \[
+        \Gamma_i
+        =
+        \frac{
+        \boldsymbol{\phi}_i^{\mathrm{T}}
+        \mathbf{M}
+        \mathbf{r}
+        }{
+        \boldsymbol{\phi}_i^{\mathrm{T}}
+        \mathbf{M}
+        \boldsymbol{\phi}_i
+        }
+        \]
+    </p>
+
+    <p>
+        ここで、
+    </p>
+
+    <ul>
+        <li>\(\Gamma_i\)：第 <i>i</i> モードの刺激係数</li>
+        <li>\(\boldsymbol{\phi}_i\)：第 <i>i</i> モードの固有ベクトル</li>
+        <li>\(\mathbf{M}\)：質量行列</li>
+        <li>\(\mathbf{r}\)：影響ベクトル（通常は全成分が1のベクトル）</li>
+    </ul>
+
+    <p>
+        とします。
+    </p>
+
+    <p>
+        刺激係数が大きいモードほど、地震動による影響を強く受けることを意味します。
+        一方、刺激係数が小さいモードは、地震応答への寄与が小さくなります。
+    </p>
+
+    <p>
+        モード重畳法では、各モードの応答を求めた後、刺激係数を用いて実際の地震応答へ換算します。
+    </p>
+
+    <p>
+        各モードの変位は、
+    </p>
+
+    <p>
+        \[
+        \mathbf{u}_i
+        =
+        \Gamma_i
+        \boldsymbol{\phi}_i
+        q_i
+        \]
+    </p>
+
+    <p>
+        と表されます。
+    </p>
+
+    <p>
+        最終的な構造物の応答は、すべてのモードの応答を重ね合わせることで求められます。
+    </p>
+
+    <p>
+        \[
+        \mathbf{u}
+        =
+        \sum_{i=1}^{n}
+        \Gamma_i
+        \boldsymbol{\phi}_i
+        q_i
+        \]
+    </p>
+
+    <p>
+        一般に、低次モードほど刺激係数が大きくなることが多く、構造物の地震応答には第1モードが大きく寄与します。そのため、多くの建物では第1～数モードまでを考慮することで十分な精度が得られます。
+    </p>
+
+    <h2 id="mass">有効質量比</h2>
+
+    <p>
+        \[
+        \beta_i=
+        \frac{\boldsymbol{\phi}_i^{T}\mathbf{M}\mathbf{1}}
+        {\boldsymbol{\phi}_i^{T}\mathbf{M}\boldsymbol{\phi}_i}
+        \]
+    </p>
+
+    <p>
+        \[
+        M_i^{*}=
+        \frac{\left(\boldsymbol{\phi}_i^{T}\mathbf{M}\mathbf{1}\right)^2}
+        {\boldsymbol{\phi}_i^{T}\mathbf{M}\boldsymbol{\phi}_i}
+        \]
+    </p>
+
+    <p>
+        \[
+        r_i=
+        \frac{M_i^{*}}
+        {\mathbf{1}^{T}\mathbf{M}\mathbf{1}}
+        \times100\%
+        \]
+    </p>
+
+
+
+    <h2 id="sankou">参考文献</h2>
+
+    <p>
+        [1] 柴田明徳：最新耐震構造解析 第3版・補訂版, 森北出版株式会社, 2021.9
+    </p>
+
+    <!-- トップへ戻る -->
+    <a href="#top">
+        <button id="topButton">▲ トップへ戻る</button>
+    </a>
+
+</div>
+
+
+</body>
+</html>
