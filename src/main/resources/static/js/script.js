@@ -62,6 +62,18 @@ window.onload = function () {
     //document.getElementById("start").addEventListener("click", draw);
 
     // ==========================
+    // ヘッダー
+    // ==========================
+    const btn = document.getElementById("menuBtn");
+    const panel = document.getElementById("panel");
+
+    btn.onclick = function(){
+
+        panel.classList.toggle("show");
+
+    }
+
+    // ==========================
     // サイドバー
     // ==========================
 

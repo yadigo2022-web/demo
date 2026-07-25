@@ -3,14 +3,15 @@ body{
     margin:0;
 
     display:grid;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;*/
+    /* align-items: center;*/
 
 
-    grid-template-columns:150px 850px 270px;
+    grid-template-columns: 15fr 85fr 27fr;
     gap: 1px;
 
     grid-template-areas:
+        "header header header"
         "toc1 content toc2";
 
     min-height:100vh;
@@ -29,7 +30,7 @@ body{
     /* 💡 3カラム（150px + 850px + 270px）を並べるグリッド */
     display: grid;
     /* gap（1px）を含めてぴったり収まる横幅（計1272px） */
-    grid-template-columns: 150px 850px 270px;
+    grid-template-columns: 15fr 85fr 27fr;
     gap: 1px;
 
     /* 💡 HTMLの記述順に合わせてエリアを対応させる */
@@ -42,15 +43,47 @@ body{
 ====================================*/
 
 canvas{
-    grid-area:canvas;
-    display:block;
-    margin:30px auto;
-    border:1px solid #000;
+    grid-area: canvas;
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    margin: 30px auto;
+    border: 1px solid #000;
+    box-sizing: border-box;
 }
 
 /*====================================
   メインコンテンツ
 ====================================*/
+
+header{
+    grid-area: header;
+    height:60px;
+    background:#333;
+}
+
+#panel{
+    position:fixed;
+    top:-400px;
+    left:0;
+    width:100%;
+    height:400px;
+
+    background:white;
+
+    transition:0.4s;
+}
+
+#panel.show{
+    top:60px;
+}
+
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
 
 #content{
     grid-area:content;
@@ -58,7 +91,7 @@ canvas{
 
     display:grid;
 
-    grid-template-columns:180px 400px 180px;
+    grid-template-columns: 9fr 20fr 9fr;
     grid-template-rows:
         500px      /* 上段 */
         300px;      /* 下段 */
