@@ -14,16 +14,49 @@
 <div class="main-container">
 
     <header>
-        <button id="menuBtn">メニュー</button>
+        <h2>地震応答解析</h2>
+        <button id="menuButton">☰</button>
+
+
     </header>
 
-    <div id="panel">
-        <iframe src="help.html"></iframe>
+
+    <div id="menu">
+        <button id="menuClose">
+            ×
+        </button>
+        <a href="/menu">使い方</a>
+        <a href="/help">地震応答解析について知る</a>
+        <a href="/index">シミュレーション</a>
+
+        <a id="about">このサイトについて</a>
+
     </div>
+    <div id="aboutModal">
+
+        <div class="aboutBox">
+
+            <span id="aboutClose">×</span>
+
+            <h2>このサイトについて</h2>
+
+            <p>
+                このサイトは地震応答解析を行うためのWebアプリです。
+            </p>
+
+            <p>
+                固有値解析や時刻歴応答解析を用いて、
+                建物の応答を確認できます。
+            </p>
+
+        </div>
+
+    </div>
+
     <!-- ==========================
          右サイドバー
     ========================== -->
-    <aside id="toc1">
+    <div id="toc1">
         <h2>使い方</h2>
 
         <button id="helpButton1">①パラメータ入力</button>
@@ -135,8 +168,6 @@
             </div>
 
         </div>
-        <br><br>
-        <a href="/menu" >⌂</a>
 
 
 
@@ -145,58 +176,8 @@
 
 
 
-    </aside>
-    <!-- ==========================
-         右サイドバー
-    ========================== -->
-    <aside id="toc2">
+    </div>
 
-        <h2>② 地震波を設定する</h2>
-        <div class="inputGroup">
-            <label id="earthquakeLabel" for="input seismic wave">
-                地震波を選択
-            </label>
-            <select id="input seismic wave">
-                <option>El Centro</option>
-                <option>Taft</option>
-                <option>Hachinohe</option>
-            </select>
-
-        <br><br>
-
-            <label for="csvFile">
-                <input type="checkbox" id="lock">
-                CSVファイルで地震波を入力
-            </label>
-
-            <input
-                    type="file"
-                    id="csvFile"
-                    accept=".csv"
-                    disabled>
-        </div>
-
-        <br><br>
-        <br><br>
-
-        <h2>③ 解析を実行する</h2>
-        <button id="start">▷</button>
-
-        <br><br>
-
-        <h2>④ 解析結果を見る</h2>
-        <button id="look"> ∿∿∿∿∿∿∿ </button>
-    　　
-        <br><br>
-            　
-        <h2>⑤ 解析結果を出力</h2>
-        <input type="text" id="fileName" placeholder="ファイル名">
-
-        <button onclick="downloadCsv()">
-            ダウンロード
-        </button>
-
-    </aside>
 
 
     <!-- ==========================
@@ -206,79 +187,189 @@
 
         <canvas id="canvas" width="700" height="400"></canvas>
 
-        <!-- toc3 -->
-        <section id="toc3">
-            <div class="inputGroup">
-                <label for="floor">階数</label>
-                <input
-                        type="number"
-                        id="floor"
-                        min="1"
-                        step="1"
-                        value="1">
-            </div>
-        </section>
 
-        <!-- toc4 -->
-        <section id="toc4">
-            <div class="inputGroup">
-                <label for="damping">減衰定数</label>
-                <input
-                        type="number"
-                        id="damping"
-                        step="0.01"
-                        min="0"
-                        value="0.02">
-            </div>
-        </section>
+        <!-- ページ切替ボタン -->
+        <div class="pageButton">
 
-        <!-- toc5 -->
-        <section id="toc5">
-            <div id="floorParameters"></div>
-        </section>
+            <button id="page1">
+                諸元
+            </button>
 
-
-
-
-    <div id="loading">
-        <div class="loader"></div>
-        <p>解析中...</p>
-    </div>
-
-    <div id="complete">
-
-        <div class="completeBox">
-
-            <div class="check">✓</div>
-
-            <h2>解析が完了しました</h2>
-
-            <button id="okButton">OK</button>
+            <button id="page2">
+                地震波
+            </button>
+            <button id="page3">
+                解析
+            </button>
+            <button id="page4">
+                出力
+            </button>
 
         </div>
 
-    </div>
+
+
+        <!-- 横スライドする部分 -->
+        <div id="bottomArea">
+
+            <div id="pageContainer">
+
+
+                <!-- 入力画面 -->
+                <section id="toc3">
+
+                    <div class="inputGroup">
+
+
+                        <div class="paramBox">
+
+                            <label for="floor">
+                                階数
+                            </label>
+
+                            <input
+                                    type="number"
+                                    id="floor"
+                                    min="1"
+                                    step="1"
+                                    value="1">
+
+                        </div>
 
 
 
-    <div id="errorModal">
+                        <div class="paramBox">
 
-        <div class="modalContent">
+                            <label for="damping">
+                                減衰定数
+                            </label>
 
-            <h2>入力エラー</h2>
+                            <input
+                                    type="number"
+                                    id="damping"
+                                    step="0.01"
+                                    min="0"
+                                    value="0.02">
 
-            <p id="errorText"></p>
+                        </div>
 
-            <button id="errorOk">OK</button>
+
+
+                        <div id="floorParameters"></div>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ②画面 -->
+                <section id="resultPage">
+
+                    <h2>地震波を設定する</h2>
+                    <label id="earthquakeLabel" for="input seismic wave">
+                        地震波を選択
+                    </label>
+                    <select id="input seismic wave">
+                        <option>El Centro</option>
+                        <option>Taft</option>
+                        <option>Hachinohe</option>
+                    </select>
+                    <label for="csvFile">
+                        <input type="checkbox" id="lock">
+                        CSVファイルで地震波を入力
+                    </label>
+
+                    <input
+                            type="file"
+                            id="csvFile"
+                            accept=".csv"
+                            disabled>
+
+
+
+                </section>
+                <!-- ③画面 -->
+                <section id="sec3">
+                    <h2>③ 解析を実行する</h2>
+                    <button id="start">▷</button>
+                    <h2>④ 解析結果を見る</h2>
+                    <button id="look"> ∿∿∿∿∿∿∿ </button>
+                </section>
+                <!-- ④画面 -->
+                <section id="sec4">
+                    <h2>⑤ 解析結果を出力</h2>
+                    <input type="text" id="fileName" placeholder="ファイル名">
+
+                    <button onclick="downloadCsv()">
+                        ダウンロード
+                    </button>
+                </section>
+
+            </div>
 
         </div>
 
-    </div>
+
+
+        <!-- 完了画面 -->
+        <div id="complete">
+
+            <div class="completeBox">
+
+                <div class="check">
+                    ✓
+                </div>
+
+                <h2>
+                    解析が完了しました
+                </h2>
+
+                <button id="okButton">
+                    OK
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ローディング -->
+        <div id="loading">
+
+            <div class="loader"></div>
+
+            <p>
+                解析中...
+            </p>
+
+        </div>
+
+
+
+        <!-- エラー -->
+        <div id="errorModal">
+
+            <div class="modalContent">
+
+                <h2>
+                    入力エラー
+                </h2>
+
+                <p id="errorText"></p>
+
+                <button id="errorOk">
+                    OK
+                </button>
+
+            </div>
+
+        </div>
 
 
     </main>
-    <!-- ホームボタン -->
-    <!--<a href="/menu" id="home1">⌂</a>-->
 
 
     <div id="loading2">
@@ -292,6 +383,7 @@
     </div>
 
     <script src="/js/script.js"></script>
+    <script src="/js/script0.js"></script>
 </div>
 </body>
 </html>

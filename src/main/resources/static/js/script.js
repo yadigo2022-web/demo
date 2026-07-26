@@ -64,7 +64,7 @@ window.onload = function () {
     // ==========================
     // ヘッダー
     // ==========================
-    const btn = document.getElementById("menuBtn");
+    const btn = document.getElementById("menuButton");
     const panel = document.getElementById("panel");
 
     btn.onclick = function(){
@@ -74,6 +74,93 @@ window.onload = function () {
     }
 
     // ==========================
+    // ページ切替
+    // ==========================
+
+    const page1 = document.getElementById("page1");
+    const page2 = document.getElementById("page2");
+    const page3 = document.getElementById("page3");
+    const page4 = document.getElementById("page4");
+
+    const inputPage = document.getElementById("toc3");
+    const resultPage = document.getElementById("resultPage");
+    const sec3 = document.getElementById("sec3");
+    const sec4 = document.getElementById("sec4");
+
+    const  pages = [
+        inputPage,
+        resultPage,
+        sec3,
+        sec4
+    ];
+
+
+
+    // ②
+    page2.onclick=function(){
+
+
+        pages
+            .filter(page => page.id !== "resultPage")
+            .forEach(page => {
+
+                page.style.display="none";
+
+            });
+
+        resultPage.style.display="block";
+
+    };
+
+
+　　// ①
+    page1.onclick=function(){
+
+        pages
+            .filter(page => page.id !== "inputPage")
+            .forEach(page => {
+
+                page.style.display="none";
+
+            });
+
+        inputPage.style.display="block";
+
+    };
+
+    // ③
+    page3.onclick=function(){
+
+
+        pages
+            .filter(page => page.id !== "sec3")
+            .forEach(page => {
+
+                page.style.display="none";
+
+            });
+
+        sec3.style.display="block";
+
+    };
+    // ④
+    page4.onclick=function(){
+
+
+        pages
+            .filter(page => page.id !== "sec4")
+            .forEach(page => {
+
+                page.style.display="none";
+
+            });
+
+        sec4.style.display="block";
+
+    };
+
+
+    // ==========================
     // サイドバー
     // ==========================
 
@@ -81,11 +168,23 @@ window.onload = function () {
     const closeButton = document.getElementById("closeButton");
     const sidebar = document.getElementById("sidebar");
 
-    if (menuButton && sidebar) {
-        menuButton.addEventListener("click", function () {
-            sidebar.classList.add("open");
-        });
-    }
+
+
+    const menu =
+        document.getElementById("menu");
+
+
+    menuButton.onclick = function(){
+
+        menu.classList.toggle("show");
+
+    };
+
+    menuClose.onclick=function(){
+
+        menu.classList.remove("show");
+
+    };
 
     if (closeButton && sidebar) {
         closeButton.addEventListener("click", function () {

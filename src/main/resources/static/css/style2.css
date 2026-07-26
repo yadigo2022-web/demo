@@ -186,3 +186,29 @@
 
     box-sizing: border-box;
 }
+/* ==========================
+   スマホ表示
+========================== */
+
+@media (max-width: 1000px){
+
+    /* 目次を非表示 */
+    #toc{
+        display:none;
+    }
+
+    /* 本文を画面いっぱいに */
+    #content{
+        margin:0;
+        width:100%;
+        padding:15px;
+        box-sizing:border-box;
+    }
+
+    /* 数式や画像がはみ出さないように */
+    img{
+        max-width:100%;
+        height:auto;
+    }
+
+}

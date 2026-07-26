@@ -1,42 +1,24 @@
 body{
-
     margin:0;
+    display:flex;
+    justify-content:center;
+    background: white;
+}
+.main-container{
+
+    width:1350px;
 
     display:grid;
-    /* justify-content: center;*/
-    /* align-items: center;*/
 
 
-    grid-template-columns: 15fr 85fr 27fr;
-    gap: 1px;
+    grid-template-rows:60px 1fr;
 
     grid-template-areas:
-        "header header header"
-        "toc1 content toc2";
-
-    min-height:100vh;
-
+        "header"
+        "content";
 }
-.main-container {
-    padding: 10px;
-    width: 1350px;
-    /* 枠線の太さをサイズの中に含める */
-    box-sizing: border-box;
 
-    /* 5pxの黒い外枠 */
-    border: 1px solid #9a9a9a;
-    background-color: #ffffff; /* 中身の背景は白 */
 
-    /* 💡 3カラム（150px + 850px + 270px）を並べるグリッド */
-    display: grid;
-    /* gap（1px）を含めてぴったり収まる横幅（計1272px） */
-    grid-template-columns: 15fr 85fr 27fr;
-    gap: 1px;
-
-    /* 💡 HTMLの記述順に合わせてエリアを対応させる */
-    grid-template-areas:
-        "toc1 content toc2";
-}
 
 /*====================================
   キャンバス
@@ -45,12 +27,67 @@ body{
 canvas{
     grid-area: canvas;
     display: block;
-    width: 100%;
-    max-width: 700px;
-    height: auto;
+    width: 90%;
+    height:90%;
+    max-width: 90%;
+    max-height: 90%;
+    /*height: auto;*/
     margin: 30px auto;
-    border: 1px solid #000;
+    border: 1px solid black;
     box-sizing: border-box;
+}
+#bottomArea{
+
+    display:flex;
+
+    width:100%;
+
+    overflow:hidden;
+
+}
+
+
+#inputPage,
+#resultPage{
+
+    min-width:100%;
+
+    transition:transform 0.5s;
+
+}
+
+
+#resultPage{
+
+    padding:20px;
+
+}
+#resultPanel{
+
+    position:fixed;
+
+    top:0;
+    right:0;
+
+    width:0;
+    height:100vh;
+
+    background:white;
+
+    overflow:hidden;
+
+    transition:width .5s;
+
+    border-left:1px solid #ccc;
+
+    z-index:1000;
+}
+
+
+#resultPanel.show{
+
+    width:400px;
+
 }
 
 /*====================================
@@ -58,25 +95,206 @@ canvas{
 ====================================*/
 
 header{
-    grid-area: header;
-    height:60px;
-    background:#333;
-}
 
-#panel{
-    position:fixed;
-    top:-400px;
-    left:0;
-    width:100%;
-    height:400px;
+    grid-area:header;
+
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    box-sizing:border-box;
+
+    padding:0 15px;
 
     background:white;
 
-    transition:0.4s;
+}
+
+
+header h2{
+
+    margin:0;
+
+    font-size:22px;
+
+}
+/* ボタン */
+#menuButton{
+
+    width:45px;
+
+    height:40px;
+
+    font-size:24px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:0;
+
+    border:1px solid #ccc;
+
+    background:white;
+
+    cursor:pointer;
+
+}
+/* 全画面メニュー */
+#menu{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:white;
+
+    z-index:3000;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:0.3s;
+}
+
+
+/* 開いた状態 */
+#menu.show{
+
+    opacity:1;
+
+    pointer-events:auto;
+
+}
+
+
+/* メニュー項目 */
+#menu a{
+
+    text-decoration:none;
+
+    color:black;
+
+    font-size:28px;
+
+    padding:20px;
+
+}
+
+#menu a:hover{
+    background:#f0f0f0;
+}
+
+#menuClose{
+
+    position:absolute;
+
+    top:20px;
+    right:20px;
+
+    width:45px;
+    height:45px;
+
+    font-size:35px;
+
+    border:none;
+
+    background:white;
+
+    cursor:pointer;
+
+}
+
+#aboutModal{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.5);
+
+    z-index:9999;
+
+}
+
+
+.aboutBox{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+
+    width:500px;
+
+    min-height:300px;
+
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:10px;
+
+}
+
+
+#aboutClose{
+
+    position:absolute;
+
+    right:15px;
+    top:10px;
+
+
+    font-size:30px;
+
+    cursor:pointer;
+
+}
+
+#panel{
+    position:absolute;
+    top:60px;
+    left:0;
+
+    width:100%;
+    height:0;
+
+    background-color: white;
+
+    overflow:hidden;
+
+    transition:height .4s;
 }
 
 #panel.show{
-    top:60px;
+    height:700px;
 }
 
 iframe{
@@ -91,31 +309,38 @@ iframe{
 
     display:grid;
 
-    grid-template-columns: 9fr 20fr 9fr;
     grid-template-rows:
         500px      /* 上段 */
+        100px      /* 中段 */
         300px;      /* 下段 */
 
     grid-template-areas:
-        "canvas canvas canvas"
-        "toc3 toc5 toc4";
+        "canvas"
+        "button"
+        "bottom1";
     background: white;
+}
+#bottomArea{
+    grid-area:bottom1;
 }
 /*====================================
   左サイドバー
 ====================================*/
 
 #toc1{
-    grid-area:toc1;
 
+    height:0;
 
-    padding:1px;
-    /*box-sizing:border-box;*/
+    overflow:hidden;
 
-   background: white;
-   /*border-left:1px solid #ccc;*/
+    transition:height .4s;
 
-    /*overflow-y:auto;*/
+    background:white;
+}
+#toc1.show{
+
+    height:350px;
+
 }
 
 #toc h2{
@@ -197,154 +422,130 @@ iframe{
 }
 
 
-/*====================================
-  右サイドバー
-====================================*/
-
-#toc2{
-    grid-area: toc2;
-    position:static;
-
-
-
-    padding:1px;
-    box-sizing:border-box;
-
-    background: white;
-    /*border-left:1px solid #ccc;*/
-
-    overflow-y:auto;
-}
-
-#toc2 h2{
-    margin:0 0 20px;
-}
-
-#toc2 button{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    font-size:16px;
-}
 
 
 /*====================================
-  toc3
+  入力画面
 ====================================*/
-
 #toc3{
-    grid-area: toc3;
-    position:static;
 
+    display:block;
 
+    width:100%;
 
-    box-sizing:border-box;
+    height:300px;
 
-    background: white;
+    overflow:auto;
 
-    overflow-y:auto;
 }
 
-#toc3 h2{
-    margin:0 0 20px;
-}
 
+/* 結果画面 */
+#resultPage,
+#sec3{
+
+    display:none;
+
+    width:100%;
+
+    height:300px;
+
+    overflow:auto;
+
+}
+/* ==============================
+   入力欄 横並び
+============================== */
+.pageButton{
+    grid-area:button;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+#page1,
+#page2,
+#page3,
+#page4{
+
+    width:200px;
+    height:60px;
+
+    background:white;
+
+    border:2px solid black;
+
+    font-size:20px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
 
 #toc3 .inputGroup{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+
+    display:flex;
+
+    flex-direction:row;
+    justify-content:center;  /* 横方向の中央 */
+
+    /* align-items:center; */
+
+    gap:30px;
+
 }
 
-#toc3 .inputGroup label{
-    width: 60px;
+
+/* 階数・減衰定数の箱 */
+.paramBox{
+
+    display:flex;
+    justify-content:center;  /* 横方向の中央 */
+
+    /* align-items:center; */
+
+    gap:10px;
+
 }
 
-#toc3 .inputGroup input{
-    flex: 1;
+
+/* ラベル */
+.paramBox label{
+
+    white-space:nowrap;
+
 }
 
-#toc3 #floor{
+
+/* input */
+.paramBox input{
+
     width:100px;
+
     height:35px;
+
 }
 
 
-/*====================================
-  toc4
-====================================*/
+/* 階ごとの入力 */
+#floorParameters{
 
-#toc4{
-    grid-area: toc4;
-    position:static;
+    display:flex;
 
+    gap:20px;
 
-    box-sizing:border-box;
-
-    background: white;
-
-    overflow-y:auto;
 }
-
-#toc4 h2{
-    margin:0 0 20px;
-}
-
-
-#toc4 .inputGroup{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#toc4 .inputGroup label{
-    width: 80px;
-}
-
-#toc4 .inputGroup input{
-    flex: 1;
-}
-
-#toc4 #damping{
-    width:100px;
-    height:35px;
-}
-
-/*====================================
-  toc5
-====================================*/
-
-#toc5{
-    grid-area: toc5;
-    position:static;
-
-
-    box-sizing:border-box;
-
-    background: white;
-
-    overflow-y:auto;
-}
-
-
-
-/* ----------------------------
-   本文
----------------------------- */
-
-#content{
-    margin-left: 30px;
-    margin-right: 30px;
-
-    padding: 1px;
-}
-
 /*====================================
   パラメータ入力
 ====================================*/
 
 #parameterArea{
-    width:700px;
+    width:100%;
     margin:40px auto;
     background: #ffc1c1;
 }
@@ -779,5 +980,109 @@ iframe{
 #okButton:hover{
 
     background:#1976D2;
+}
+
+/* ==========================
+   スマホ表示
+========================== */
+
+@media (max-width:768px){
+
+    body{
+        display:block;
+        width:100%;
+        overflow-x:hidden;
+    }
+
+
+    .main-container{
+
+        width:100%;
+
+        padding:0;
+
+        border:none;
+
+        display:block;
+
+    }
+
+
+    /* ヘッダー */
+    header{
+
+        width:100%;
+
+        height:60px;
+
+    }
+
+
+
+
+
+    /* メイン */
+    #content{
+
+        width:100%;
+
+        margin:0;
+
+        padding:10px;
+
+        display:block;
+
+    }
+
+
+    /* canvas */
+    canvas{
+
+        width:100%;
+
+        height:auto;
+
+    }
+
+
+    /* 入力欄 */
+    #toc3 .inputGroup{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:10px;
+
+    }
+
+
+    .paramBox{
+
+        width:100%;
+
+    }
+
+
+    input,
+    select{
+
+        width:100%;
+
+        box-sizing:border-box;
+
+    }
+
+
+    /* ページ切替ボタン */
+    .pageButton{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+
 }
 

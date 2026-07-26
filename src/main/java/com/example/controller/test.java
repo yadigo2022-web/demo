@@ -11,22 +11,35 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class test {
     public AnalysisResult A(double w, double h) {
 
         //============================
-        // 地震波データ読込
-        //============================
-
-        String filePath = "C:/Users/d/Desktop/就活/プログラム/地震波・csv形式/1.newhall_NS.csv";
+// 地震波データ読込
+//============================
 
         List<double[]> matrix = new ArrayList<>();
         List<Double> groundAccList = new ArrayList<>();
 
         try {
 
-            List<String> lines = Files.readAllLines(Paths.get(filePath));
+            ClassPathResource resource =
+                    new ClassPathResource("csv/samplewave.csv");
+
+
+            List<String> lines =
+                    new BufferedReader(
+                            new InputStreamReader(resource.getInputStream())
+                    )
+                            .lines()
+                            .toList();
+
 
             for (int n = 1; n < lines.size(); n++) {
 
@@ -36,23 +49,34 @@ public class test {
                     continue;
                 }
 
+
                 String[] data = line.split(",");
 
                 double[] row = new double[data.length];
 
+
                 for (int i = 0; i < data.length; i++) {
+
                     row[i] = Double.parseDouble(data[i]);
+
                 }
+
 
                 matrix.add(row);
 
-                // 地動加速度（2列目）を保存
+
+                // 地動加速度（2列目）
                 groundAccList.add(row[1]);
+
             }
 
+
         } catch (IOException e) {
+
             e.printStackTrace();
+
             return null;
+
         }
 
         //============================
