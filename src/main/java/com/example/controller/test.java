@@ -21,8 +21,8 @@ public class test {
     public AnalysisResult A(double w, double h) {
 
         //============================
-// 地震波データ読込
-//============================
+        // 地震波データ読込
+        //============================
 
         List<double[]> matrix = new ArrayList<>();
         List<Double> groundAccList = new ArrayList<>();

@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = async function(){
 
 
     // ==========================
@@ -17,61 +17,130 @@ window.onload = function () {
 
     function draw(n,x) {
 
-        // 画面を消す
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+
+        // ==========================
+        // 自動縮尺
+        // ==========================
+
+        const margin = 50;
+        const floorHeight = 80;
+
+
+        const buildingHeight =
+            Math.max(n * floorHeight, floorHeight);
+
+
+        const scale =
+            (canvas.height - margin * 2)
+            / buildingHeight;
+
+
+        const h =
+            floorHeight * scale;
+
+
+        // 地盤位置
+        const yGround =
+            canvas.height - margin;
 
 
 
-        //==========================
-        // 縦線を描く
-        //==========================
-        for (let i = 0; i < n - 1; i++) {
+        function getY(i){
+            return yGround - (i+1)*h;
+        }
+
+
+
+        // ==========================
+        // 柱（階間）
+        // ==========================
+
+        for(let i=0;i<n;i++){
+
             ctx.beginPath();
-            ctx.moveTo(x[i+1], 350 - i * 80);
-            ctx.lineTo(x[i+2], 350 - (i + 1) * 80);
+
+            ctx.moveTo(
+                x[i+1],   // 1階以上
+                getY(i)
+            );
+
+            ctx.lineTo(
+                x[i+2],
+                getY(i+1)
+            );
+
             ctx.stroke();
+
         }
 
-        //==========================
-        // 質点を描く
-        //==========================
 
-        for (let i = 0; i < n; i++) {
+
+        // ==========================
+        // 質点
+        // ==========================
+
+        for(let i=0;i<n;i++){
+
             ctx.beginPath();
-            ctx.arc(x[i+1], 350 - i * 80, 15, 0, Math.PI * 2);
+
+            ctx.arc(
+                x[i+1],   // 1階質点はx[2]
+                getY(i),
+                15*scale,
+                0,
+                Math.PI*2
+            );
+
             ctx.fill();
+
         }
 
-        // 一番下の質点のy座標
-        const yBase = 390 ;
 
-        // 縦線
+
+        // ==========================
+        // 地盤から1階質点まで
+        // ==========================
+
         ctx.beginPath();
-        ctx.moveTo(x[1], yBase - 40);
-        ctx.lineTo(x[0], yBase);
+
+        ctx.moveTo(
+            x[1],
+            getY(0)+15*scale
+        );
+
+        ctx.lineTo(
+            x[0],
+            yGround
+        );
+
         ctx.stroke();
 
-        // 横線
+
+
+        // ==========================
+        // 地盤線
+        // ==========================
+
         ctx.beginPath();
-        ctx.moveTo(x[0]-30, yBase);
-        ctx.lineTo(x[0]+30, yBase);
+
+        ctx.moveTo(
+            x[0]-40,
+            yGround
+        );
+
+        ctx.lineTo(
+            x[0]+40,
+            yGround
+        );
+
         ctx.stroke();
-    }
-
-    // ボタンを押したら描画
-    //document.getElementById("start").addEventListener("click", draw);
-
-    // ==========================
-    // ヘッダー
-    // ==========================
-    const btn = document.getElementById("menuButton");
-    const panel = document.getElementById("panel");
-
-    btn.onclick = function(){
-
-        panel.classList.toggle("show");
 
     }
+
+
+
 
     // ==========================
     // ページ切替
@@ -80,197 +149,208 @@ window.onload = function () {
     const page1 = document.getElementById("page1");
     const page2 = document.getElementById("page2");
     const page3 = document.getElementById("page3");
-    const page4 = document.getElementById("page4");
+
 
     const inputPage = document.getElementById("toc3");
-    const resultPage = document.getElementById("resultPage");
+    const sec2 = document.getElementById("sec2");
     const sec3 = document.getElementById("sec3");
-    const sec4 = document.getElementById("sec4");
 
-    const  pages = [
+
+    const pages = [
         inputPage,
-        resultPage,
-        sec3,
-        sec4
+        sec2,
+        sec3
     ];
 
 
+// 非表示関数
+    function hidePages(){
 
-    // ②
-    page2.onclick=function(){
+        pages.forEach(page => {
 
+            page.style.display = "none";
 
-        pages
-            .filter(page => page.id !== "resultPage")
-            .forEach(page => {
+        });
 
-                page.style.display="none";
-
-            });
-
-        resultPage.style.display="block";
-
-    };
+    }
 
 
-　　// ①
+// ① 諸元
     page1.onclick=function(){
 
-        pages
-            .filter(page => page.id !== "inputPage")
-            .forEach(page => {
+        hidePages();
 
-                page.style.display="none";
-
-            });
-
-        inputPage.style.display="block";
+        inputPage.style.display="flex";
 
     };
 
-    // ③
+
+// ② 地震波
+    page2.onclick=function(){
+
+        hidePages();
+
+        sec2.style.display="flex";
+
+    };
+
+
+// ③ 解析
     page3.onclick=function(){
 
+        hidePages();
 
-        pages
-            .filter(page => page.id !== "sec3")
-            .forEach(page => {
-
-                page.style.display="none";
-
-            });
-
-        sec3.style.display="block";
+        sec3.style.display="flex";
 
     };
-    // ④
-    page4.onclick=function(){
+
+    const buttons = document.querySelectorAll(
+        "#page1,#page2,#page3"
+    );
 
 
-        pages
-            .filter(page => page.id !== "sec4")
-            .forEach(page => {
+    buttons.forEach(button => {
 
-                page.style.display="none";
+        button.addEventListener("click", function(){
 
+            // 全部解除
+            buttons.forEach(btn=>{
+                btn.classList.remove("active");
             });
 
-        sec4.style.display="block";
 
-    };
+            // 押したボタンだけ追加
+            this.classList.add("active");
+
+        });
+
+    });
+
 
 
     // ==========================
-    // サイドバー
+    // メニュー
     // ==========================
 
     const menuButton = document.getElementById("menuButton");
-    const closeButton = document.getElementById("closeButton");
-    const sidebar = document.getElementById("sidebar");
+    const menu = document.getElementById("menu");
 
 
+    if(menuButton && menu){
 
-    const menu =
-        document.getElementById("menu");
+        menuButton.onclick=function(){
 
+            menu.classList.toggle("show");
 
-    menuButton.onclick = function(){
+        };
 
-        menu.classList.toggle("show");
-
-    };
-
-    menuClose.onclick=function(){
-
-        menu.classList.remove("show");
-
-    };
-
-    if (closeButton && sidebar) {
-        closeButton.addEventListener("click", function () {
-            sidebar.classList.remove("open");
-        });
     }
-
     // ==========================
-    // チェックボックス
+    // このサイトについて
     // ==========================
 
-    const checkbox = document.getElementById("lock");
-    const select = document.getElementById("input seismic wave");
-    const label = document.getElementById("earthquakeLabel");
-    const csvFile = document.getElementById("csvFile");
+    const about = document.getElementById("about");
+    const aboutModal = document.getElementById("aboutModal");
+    const aboutClose = document.getElementById("aboutClose");
 
-    if (checkbox && select && label && csvFile) {
 
-        // 初期状態
-        select.disabled = false;
-        csvFile.disabled = true;
-        label.style.color = "#000";
+    if(about && aboutModal){
 
-        checkbox.addEventListener("change", function () {
+        about.onclick=function(){
 
-            // 地震波選択
-            select.disabled = checkbox.checked;
-            label.style.color = checkbox.checked ? "#999" : "#000";
+            aboutModal.style.display="block";
 
-            // CSVファイル選択
-            csvFile.disabled = !checkbox.checked;
-
-        });
+        };
 
     }
 
+
+    if(aboutClose && aboutModal){
+
+        aboutClose.onclick=function(){
+
+            aboutModal.style.display="none";
+
+        };
+
+    }
 
 
     // ==========================
     // CSV読込
     // ==========================
 
-    const fileInput = document.getElementById("csvFile");
-    const loadButton = document.getElementById("loadCsv");
+    let data = [];
+    let csvText = "";
+    let dt = 0.00;
 
-    if (loadButton && fileInput) {
 
-        loadButton.addEventListener("click", function () {
+    const select = document.getElementById("inputSeismicWave");
 
-            const file = fileInput.files[0];
 
-            if (!file) {
-                alert("CSVファイルを選択してください。");
-                return;
-            }
+    async function loadCsv(earthquake) {
 
-            const reader = new FileReader();
+        let fileName = "";
 
-            reader.onload = function (e) {
+        switch (earthquake) {
 
-                const csv = e.target.result;
+            case "El Centro":
+                fileName = "El_centro_NS.csv";
+                break;
 
-                const rows = csv.trim().split("\n");
+            case "Taft":
+                fileName = "Taft_N021E.csv";
+                break;
 
-                const data = [];
+            case "Hachinohe":
+                fileName = "Hachinohe_NS.csv";
+                break;
 
-                for (let i = 1; i < rows.length; i++) {
+        }
 
-                    const cols = rows[i].split(",");
 
-                    data.push({
-                        time: Number(cols[0]),
-                        acc: Number(cols[1])
-                    });
+        const response = await fetch("/csv/" + fileName);
 
-                }
+        console.log(fileName);
 
-                console.log(data);
+        csvText = await response.text();
 
-            };
+        const rows = csvText.trim().split("\n");
 
-            reader.readAsText(file);
+        data = [];
 
-        });
+        for (let i = 1; i < rows.length; i++) {
+
+            const cols = rows[i].split(",");
+
+            data.push({
+                time: Number(cols[0]),
+                acc: Number(cols[1])
+            });
+
+        }
+
+
+
+        dt = data[10].time - data[9].time;
+        console.log(dt);
 
     }
+
+
+    select.addEventListener("change", async function () {
+
+        await loadCsv(this.value);
+
+    });
+
+
+    select.value = "El Centro";
+
+    await loadCsv("El Centro");
+
+
+
 
     // ==========================
     // 階数に応じて入力欄を作成
@@ -286,44 +366,105 @@ window.onload = function () {
 
             if (n <= 0) return;
 
-            // 見出し
-            floorParameters.innerHTML = `
-                <div class="parameterHeader">
-                    <div></div>
-                    <div>質量 M (ton)</div>
-                    <div>剛性 K (kN/mm)</div>
+
+            // CSSに階数を渡す
+            floorParameters.style.setProperty(
+                "--floor",
+                n
+            );
+
+
+            // ==========================
+            // 階数表示
+            // ==========================
+
+            floorParameters.innerHTML += `
+
+            <div class="parameterHeader">
+
+                <div></div>
+
+                ${Array.from(
+                {length:n},
+                (_,i)=>`<div>${i+1}F</div>`
+            ).join("")}
+
+            </div>
+
+        `;
+
+
+
+            // ==========================
+            // 質量
+            // ==========================
+
+            floorParameters.innerHTML += `
+
+            <div class="parameterRow">
+
+                <div class="floorLabel">
+                    質量
                 </div>
-            `;
 
-            // 入力欄
-            for (let i = 1; i <= n; i++) {
+                ${Array.from(
+                {length:n},
+                (_,i)=>
+                    `
+                    <input
+                        class="massInput"
+                        type="number"
+                        id="mass${i+1}"
+                        value="1000">
+                    `
+            ).join("")}
 
-                floorParameters.innerHTML += `
-                    <div class="parameterRow">
+            </div>
 
-                        <div class="floorLabel">${i}F</div>
+        `;
 
-                        <input
-                            class="massInput"
-                            type="number"
-                            id="mass${i}"
-                            value="1000">
 
-                        <input
-                            class="stiffnessInput"
-                            type="number"
-                            id="stiffness${i}"
-                            value="40">
 
-                    </div>
-                `;
-            }
+            // ==========================
+            // 剛性
+            // ==========================
 
-            // 階数を取得
+            floorParameters.innerHTML += `
+
+            <div class="parameterRow">
+
+                <div class="floorLabel">
+                    剛性
+                </div>
+
+                ${Array.from(
+                {length:n},
+                (_,i)=>
+                    `
+                    <input
+                        class="stiffnessInput"
+                        type="number"
+                        id="stiffness${i+1}"
+                        value="40">
+                    `
+            ).join("")}
+
+            </div>
+
+        `;
+
+
+
+            // ==========================
+            // Canvas更新
+            // ==========================
+
             const storys = Number(floorInput.value);
-            const x = new Array(storys+1).fill(350);
 
-            // ★ Canvasを更新
+            const x = new Array(storys + 1)
+                .fill(350);
+
+
             draw(storys,x);
 
         });
@@ -345,14 +486,6 @@ window.onload = function () {
                 document.getElementById("errorModal").style.display = "none";
 
             });
-
-
-
-
-
-
-
-
 
 
             const n = Number(floorInput.value);
@@ -420,31 +553,16 @@ window.onload = function () {
                 stiffness.push(Number(document.getElementById(`stiffness${i}`).value));
             }
 
-            const checkbox = document.getElementById("lock");
-            const select = document.getElementById("input seismic wave");
-            const fileInput = document.getElementById("csvFile");
+            const select = document.getElementById("inputSeismicWave");
 
             let earthquake = "";
             let csvText = "";
             let fileName = "";
 
-            if (checkbox.checked) {
 
-                const file = fileInput.files[0];
+            earthquake = select.value;
 
-                if (!file) {
-                    alert("CSVファイルを選択してください。");
-                    return;
-                }
-
-                fileName = file.name;
-                csvText = await file.text();
-
-            } else {
-
-                earthquake = select.value;
-
-            }
+            csvText = select.value;
             document.getElementById("loading2").style.display = "flex";
 
 
@@ -483,39 +601,197 @@ window.onload = function () {
 
     }
     // ==========================
-    // 解析結果を見る
+    // 解析結果を見る（再生・一時停止）
     // ==========================
 
+    let t = 0;
 
-    //const lookButton = document.getElementById("look");
-    //document.getElementById("look").addEventListener("click", async function () {
-    document.getElementById("look").addEventListener("click", function () {
+
+
+
+
+    let playing = false;
+    let timer = null;
+
+    const lookButton = document.getElementById("look");
+    const progress = document.getElementById("progress");
+    const timeText = document.getElementById("timeText");
+
+
+// 無効化する対象
+    const lockTargets = [
+        document.querySelector(".pageButton"),
+        document.getElementById("toc3"),
+        document.getElementById("sec2"),
+        document.getElementById("analysisSection")
+    ];
+
+
+// ロック
+    function lockScreen(){
+
+        lockTargets.forEach(el=>{
+
+            if(el){
+                el.classList.add("disabled");
+            }
+
+        });
+
+    }
+
+
+    // 解除
+    function unlockScreen(){
+
+        lockTargets.forEach(el=>{
+
+            if(el){
+                el.classList.remove("disabled");
+            }
+
+        });
+
+    }
+
+
+
+    lookButton.addEventListener("click", function () {
+
 
         const storys = Number(floorInput.value);
 
-        let t = 0;
 
-        function animate() {
 
-            if (t >= totalDispData.length) {
+        // ==========================
+        // 一時停止
+        // ==========================
+
+        if(playing){
+
+
+            playing = false;
+
+
+            clearTimeout(timer);
+
+
+            lookButton.innerHTML = "▷";
+
+
+            // 操作解除
+            unlockScreen();
+
+
+            return;
+
+        }
+
+
+
+        // ==========================
+        // 再生開始
+        // ==========================
+
+        playing = true;
+
+
+        lookButton.innerHTML = "Ⅱ";
+
+
+        // 操作制限
+        lockScreen();
+
+
+
+
+        function animate(){
+
+
+            if(!playing){
+
                 return;
+
             }
 
-            // x座標を作る
+
+
+            // 終了
+
+            if(t >= totalDispData.length){
+
+
+                playing = false;
+
+
+                lookButton.innerHTML = "⟲";
+
+
+                t = 0;
+
+
+
+
+
+
+                unlockScreen();
+
+
+                return;
+
+            }
+
+
+
+
             const x = [350];
 
-            for (let i = 0; i < totalDispData[t].length; i++) {
-                x.push(350 + totalDispData[t][i] * 2);
+
+            for(let i=0; i<totalDispData[t].length; i++){
+
+
+                x.push(
+                    350 + totalDispData[t][i] * 2
+                );
+
             }
 
-            draw(storys, x);
+
+
+            draw(storys,x);
+            // バー更新
+            progress.value = t / (totalDispData.length - 1) * 100;
+
+            // 時間表示
+            const currentTime = (t * dt).toFixed(2);
+            const totalTime = ((totalDispData.length - 1) * dt).toFixed(2);
+
+            timeText.textContent = `${currentTime} / ${totalTime} 秒`;
 
             t++;
 
-            setTimeout(animate, 16);   // 約60fps
+            timer = setTimeout(animate,16);
+
+
         }
 
+
+
         animate();
+
+
+    });
+    progress.addEventListener("input", function () {
+
+        t = Math.round(
+            this.value / 100 * (totalDispData.length - 1)
+        );
+
+        // 時間表示を更新
+        const currentTime = (t * dt).toFixed(2);
+        const totalTime = ((totalDispData.length - 1) * dt).toFixed(2);
+
+        timeText.textContent = `${currentTime} / ${totalTime} 秒`;
 
     });
 
@@ -528,53 +804,9 @@ window.onload = function () {
 
 
 
-    document.getElementById("helpButton1").addEventListener("click", function () {
-
-        modal.style.display = "block";
-
-    });
-
-    document.getElementById("helpButton2").addEventListener("click", function () {
-
-        modal.style.display = "block";
-
-    });
-
-    document.getElementById("close").addEventListener("click", function () {
-
-        modal.style.display = "none";
-
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 };
 
 
-function downloadCsv() {
-
-    const fileName = document.getElementById("fileName").value;
-
-    if (fileName.trim() === "") {
-        alert("ファイル名を入力してください");
-        return;
-    }
-
-    window.location.href =
-        "/downloadCsv?name=" + encodeURIComponent(fileName);
-}
 
 function showError(message){
 
