@@ -275,6 +275,24 @@ window.onload = async function(){
 
     }
 
+    const helpButton = document.getElementById("help");
+    const helpModal = document.getElementById("helpModal");
+    const helpClose = document.getElementById("helpClose");
+
+
+    helpButton.addEventListener("click", function(){
+
+        helpModal.style.display="block";
+
+    });
+
+
+    helpClose.addEventListener("click", function(){
+
+        helpModal.style.display="none";
+
+    });
+
 
     // ==========================
     // CSV読込
@@ -323,17 +341,17 @@ window.onload = async function(){
 
             const cols = rows[i].split(",");
 
-            data.push({
-                time: Number(cols[0]),
-                acc: Number(cols[1])
-            });
+            data.push([
+                Number(cols[0]),
+                Number(cols[1])
+            ]);
 
         }
 
 
 
-        dt = data[10].time - data[9].time;
-        console.log(dt);
+        dt = data[10][0] - data[9][0];
+        console.log(data);
 
     }
 
@@ -577,7 +595,9 @@ window.onload = async function(){
                     stiffness: stiffness,
                     earthquake: earthquake,
                     fileName: fileName,
-                    csvText: csvText
+                    csvText: csvText,
+                    data: data,
+                    dt: dt
                 })
             });
             const result = await response.json();
@@ -618,7 +638,7 @@ window.onload = async function(){
     const timeText = document.getElementById("timeText");
 
 
-// 無効化する対象
+    // 無効化する対象
     const lockTargets = [
         document.querySelector(".pageButton"),
         document.getElementById("toc3"),
@@ -627,7 +647,7 @@ window.onload = async function(){
     ];
 
 
-// ロック
+    // ロック
     function lockScreen(){
 
         lockTargets.forEach(el=>{
@@ -687,23 +707,14 @@ window.onload = async function(){
 
         }
 
-
-
         // ==========================
         // 再生開始
         // ==========================
 
         playing = true;
-
-
         lookButton.innerHTML = "Ⅱ";
-
-
         // 操作制限
         lockScreen();
-
-
-
 
         function animate(){
 

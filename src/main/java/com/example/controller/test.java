@@ -1,28 +1,19 @@
 package com.example.controller;
 
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
-import org.knowm.xchart.XYChartBuilder;
-import org.knowm.xchart.XYSeries;
-import org.knowm.xchart.style.markers.None;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.ClassPathResource;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class test {
-    public AnalysisResult A(double w, double h) {
+    public AnalysisResult TimeHistoryAnalysis(double w, double h, List<List<Double>> data, double dt) {
 
         //============================
         // 地震波データ読込
         //============================
+        /*
 
         List<double[]> matrix = new ArrayList<>();
         List<Double> groundAccList = new ArrayList<>();
@@ -79,33 +70,8 @@ public class test {
 
         }
 
-        //============================
-        // CSVの内容を表示
-        //============================
-        /*
-
-        System.out.println("CSVデータ");
-
-        for (double[] row : matrix) {
-
-            for (double value : row) {
-                System.out.print(value + " ");
-            }
-
-            System.out.println();
-        }
          */
 
-        //============================
-        // 時刻刻み
-        //============================
-        double dt = 0.0;
-        if (matrix.size() >= 2) {
-
-            dt = matrix.get(1)[0] - matrix.get(0)[0];
-
-            System.out.println("t = " + dt);
-        }
 
         //============================
         // 時刻歴応答解析
@@ -121,14 +87,13 @@ public class test {
 
         List<Double> time = new ArrayList<>();
 
-        System.out.println(matrix.size());
+        System.out.println(data.size());
 
 
+        for (int i = 0; i < data.size(); i++) {
 
-        for (int i = 0; i < matrix.size(); i++) {
-
-            // 地動加速度（CSVの2列目）
-            double groundAcc = matrix.get(i)[1];
+            // 地動加速度（dataの2列目）
+            double groundAcc = data.get(i).get(1);
 
             // 次ステップ加速度
             double y_acc_next = -(
@@ -156,28 +121,19 @@ public class test {
             y_vel = y_vel_next;
             y_dis = y_dis_next;
 
-            time.add(matrix.get(i)[0]);   // 時刻
+            // 時刻（dataの1列目）
+            time.add(data.get(i).get(0));
         }
 
-        /*
-        System.out.println("加速度");
-        for (double value : acc) {
-            System.out.println(value);
+
+        // 結果を返す
+        List<Double> groundAccList = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+
+            groundAccList.add(data.get(i).get(1));
+
         }
-
-        System.out.println("速度");
-        for (double value : vel) {
-            System.out.println(value);
-        }
-
-        System.out.println("変位");
-        for (double value : disp) {
-            System.out.println(value);
-        }
-
-        */
-
-
         return new AnalysisResult(acc, vel, disp, groundAccList);
     }
 }

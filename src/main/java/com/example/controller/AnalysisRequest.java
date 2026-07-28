@@ -10,6 +10,8 @@ public class AnalysisRequest {
     private String earthquake;
     private String fileName;
     private String csvText;
+    private List<List<Double>> data;
+    private double dt;
 
     // damping
     public double getDamping() {
@@ -63,5 +65,20 @@ public class AnalysisRequest {
 
     public void setCsvText(String csvText) {
         this.csvText = csvText;
+    }
+    // data
+    public List<List<Double>>  getData() {
+        return data;
+    }
+    public void setData(List<List<Double>> data) {
+        this.data = data;
+    }
+    // dt
+    public double getDt() {
+        return dt;
+    }
+
+    public void setDt(double dt) {
+        this.dt = dt;
     }
 }

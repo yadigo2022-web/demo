@@ -18,21 +18,11 @@ public class AnalysisService {
             List<Double> stiffness,
             double damping,
             String earthquake,
-            String csvText) {
+            String csvText,
+            List<List<Double>> data,
+            double dt) {
 
         System.out.println("===== 入力値 =====");
-
-        double h = damping;
-
-        // 地震波
-        System.out.println("地震波");
-        System.out.println(earthquake);
-
-        // CSVをアップロードした場合
-        if (csvText != null && !csvText.isEmpty()) {
-            System.out.println("CSV内容");
-            System.out.println(csvText);
-        }
 
         System.out.println();
 
@@ -40,7 +30,8 @@ public class AnalysisService {
         System.out.println("減衰比");
         System.out.println(damping);
 
-        System.out.println();
+
+        System.out.println(dt);
 
         // 質量
         System.out.println("質量");
@@ -186,7 +177,7 @@ public class AnalysisService {
 
         for (int i = 0; i < w.length; i++) {
 
-            AnalysisResult result = calculator.A(w[i], h);
+            AnalysisResult result = calculator.TimeHistoryAnalysis(w[i], damping, data, dt);
 
             List<Double> acc = result.getAcc();
             List<Double> vel = result.getVel();

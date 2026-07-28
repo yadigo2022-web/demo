@@ -97,39 +97,47 @@
    ホームボタン
 ---------------------------- */
 
-#toc a#home{
+#home{
+
     position: fixed;
 
-    left: 30px;
-    bottom: 30px;
+    left:50%;
+    bottom:30px;
 
-    width: 160px;              /* 幅を固定 */
-    box-sizing: border-box;
+    transform:translateX(-50%);
 
-    display: block;
-    text-align: center;
+    width:160px;
 
-    padding: 12px 0;
+    box-sizing:border-box;
 
-    font-size: 16px;
-    font-weight: bold;
+    display:block;
+    text-align:center;
 
-    color: white;
-    background: #0078d7;
+    padding:12px 0;
 
-    text-decoration: none;
+    font-size:16px;
+    font-weight:bold;
 
-    border-radius: 8px;
+    color:white;
+    background:#0078d7;
 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    text-decoration:none;
 
-    transition: background-color 0.2s,
+    border-radius:8px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+
+    transition:background-color 0.2s,
     transform 0.2s;
 }
 
-#toc a#home:hover{
-    background: #005fa3;
-    transform: translateY(-2px);
+
+#home:hover{
+
+    background:#005fa3;
+
+    transform:translateX(-50%) translateY(-2px);
+
 }
 
 /* ----------------------------
