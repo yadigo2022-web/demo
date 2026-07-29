@@ -24,31 +24,33 @@ window.onload = async function(){
         // 自動縮尺
         // ==========================
 
-        const margin = 50;
+        const margin = 20;
         const floorHeight = 80;
+        const radius = 15;
 
 
         const buildingHeight =
-            Math.max(n * floorHeight, floorHeight);
+            Math.max((n + 0.2) * floorHeight, 1 * floorHeight);
 
 
         const scale =
-            (canvas.height - margin * 2)
+            (canvas.height - margin * 2 - radius * 2)
             / buildingHeight;
 
 
-        const h =
-            floorHeight * scale;
+        const h = floorHeight * scale;
 
 
         // 地盤位置
-        const yGround =
-            canvas.height - margin;
+        const yGround = canvas.height - margin - 15*scale;
 
 
 
         function getY(i){
-            return yGround - (i+1)*h;
+            return canvas.height
+                - margin
+                - radius
+                - (i+1)*h;
         }
 
 
@@ -107,7 +109,7 @@ window.onload = async function(){
 
         ctx.moveTo(
             x[1],
-            getY(0)+15*scale
+            getY(0)
         );
 
         ctx.lineTo(
@@ -249,31 +251,51 @@ window.onload = async function(){
     // このサイトについて
     // ==========================
 
-    const about = document.getElementById("about");
-    const aboutModal = document.getElementById("aboutModal");
-    const aboutClose = document.getElementById("aboutClose");
+    function setupModal(buttonId, modalId, closeId){
+
+        const button = document.getElementById(buttonId);
+        const modal = document.getElementById(modalId);
+        const close = document.getElementById(closeId);
 
 
-    if(about && aboutModal){
+        if(button && modal){
 
-        about.onclick=function(){
+            button.onclick = function(){
 
-            aboutModal.style.display="block";
+                modal.style.display = "block";
 
-        };
+            };
+
+        }
+
+
+        if(close && modal){
+
+            close.onclick = function(){
+
+                modal.style.display = "none";
+
+            };
+
+        }
 
     }
 
 
-    if(aboutClose && aboutModal){
+// このサイトについて
+    setupModal(
+        "about",
+        "aboutModal",
+        "aboutClose"
+    );
 
-        aboutClose.onclick=function(){
 
-            aboutModal.style.display="none";
-
-        };
-
-    }
+// 使い方
+    setupModal(
+        "manual",
+        "manualModal",
+        "manualClose"
+    );
 
     const helpButton = document.getElementById("help");
     const helpModal = document.getElementById("helpModal");
@@ -480,7 +502,7 @@ window.onload = async function(){
             const storys = Number(floorInput.value);
 
             const x = new Array(storys + 1)
-                .fill(350);
+                .fill(canvas.width / 2);
 
 
             draw(storys,x);
@@ -755,14 +777,14 @@ window.onload = async function(){
 
 
 
-            const x = [350];
+            const x = [canvas.width / 2];
 
 
             for(let i=0; i<totalDispData[t].length; i++){
 
 
                 x.push(
-                    350 + totalDispData[t][i] * 2
+                    canvas.width / 2 + totalDispData[t][i] * 2
                 );
 
             }

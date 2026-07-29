@@ -23,11 +23,35 @@
 
     <div id="menu">
 
-        <a href="/manual">使い方</a>
+        <a id="manual">使い方</a>
         <a id="help">地震応答解析について知る</a>
         <a id="about">このサイトについて</a>
 
     </div>
+
+    <div id="manualModal">
+
+        <div class="manualBox">
+
+            <span id="manualClose">×</span>
+
+            <h2>使い方</h2>
+
+            <p>
+                このサイトでは、建物を質点系モデルとして設定し、地震応答解析を行うことで、地震時の建物挙動を見ることができます。<br>
+
+            </p>
+            <p>
+                「ﾊﾟﾗﾒｰﾀｰ」で建物の階数、質量、剛性、減衰比を設定し、
+                「解析」で入力地震波を選択して解析を実行すると、「結果」で地震時の質点系の挙動を確認できます。
+            </p>
+
+
+        </div>
+
+    </div>
+
+
     <div id="helpModal">
 
         <div class="helpBox">
@@ -48,14 +72,10 @@
             <h2>このサイトについて</h2>
 
             <p>
-                このサイトは地震応答解析を行うためのWebアプリです。
+                このサイトでは、地震動を受けた質点系の時刻歴応答を確認できます。
             </p>
-
-            <p>
-                固有値解析や時刻歴応答解析を用いて、
-                建物の応答を確認できます。
-            </p>
-            <h2>免責事項</h2>
+            <div style="height:20px;"></div>
+            <h3>免責事項</h3>
             <p>
                 本ウェブサイトの利用に際して発生した一切の損害等について、当方は責任を負いかねますので、あらかじめご了承ください。
             </p>
@@ -70,7 +90,7 @@
     <main id="content">
 
         <div id="canvasArea">
-            <canvas id="canvas" width="700" height="700"></canvas>
+            <canvas id="canvas" width="500" height="500"></canvas>
         </div>
 
 
@@ -78,14 +98,14 @@
         <div class="pageButton">
 
             <button id="page1">
-                諸元
+                ﾊﾟﾗﾒｰﾀｰ
             </button>
 
             <button id="page2">
-                地震波
+                解析
             </button>
             <button id="page3">
-                解析
+                結果
             </button>
         </div>
 
@@ -161,6 +181,11 @@
                         <option>Taft</option>
                         <option>Hachinohe</option>
                     </select>
+                    <h2>③ 解析を実行する</h2>
+
+                    <button id="start">
+                        ▷
+                    </button>
 
 
                 </section>
@@ -170,11 +195,7 @@
                     <!-- ③ 解析実行 -->
                     <section id="analysisSection">
 
-                        <h2>③ 解析を実行する</h2>
 
-                        <button id="start">
-                            ▷
-                        </button>
 
                     </section>
 
