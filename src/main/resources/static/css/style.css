@@ -41,7 +41,7 @@ canvas{
     margin:auto;
 
     border:1px solid black;
-    position:static;
+    position:relative;
     z-index:auto;
 
 
@@ -163,7 +163,7 @@ canvas{
 #menuButton{
     position:absolute;
     top:5px;
-    right:10px;
+    right:0px;
 
     width:50px;
     height:50px;
@@ -177,6 +177,13 @@ canvas{
     z-index:1001;
 }
 
+#manual,
+#help,
+#about{
+    cursor: pointer;
+    display: inline-block;
+    width: fit-content;
+}
 #helpModal{
 
     display:none;
@@ -366,12 +373,11 @@ canvas{
 
     align-items:center;
 
-    gap:50px;
+
 
 }
 
 
-#analysisSection,
 #resultSection{
 
     display:flex;
@@ -418,19 +424,7 @@ canvas,
     display:none;
 
 }
-#toc3{
 
-    width:100%;
-
-    max-width:100%;
-
-    min-width:0;
-
-    overflow-x:auto;
-
-    box-sizing:border-box;
-
-}
 #sec2.show,
 #sec3.show{
 
@@ -486,6 +480,18 @@ canvas,
     cursor:pointer;
 
 }
+#toc3 h2,
+#sec2 h2,
+#sec3 h2{
+
+    width:100%;
+
+    text-align:center;
+
+
+    margin-top: 15px;
+
+}
 
 
 /* 選択中 */
@@ -499,28 +505,32 @@ canvas,
 
 }
 
+/*====================================
+  階数・減衰定数
+====================================*/
 
-/* 階数・減衰定数の箱 */
-.paramBox{
+#basicParameter{
 
     display:flex;
 
+    flex-direction:column;
+
     align-items:center;
 
-    justify-content:center;
+    gap:15px;   /* ← ここで行間を調整 */
 
-    gap:10px;
-
-    width:300px;
+    width:100%;
 
 }
+
+
 
 
 .paramBox label{
 
     width:80px;
 
-    text-align:right;
+    text-align:center;
 
     font-weight:bold;
 
@@ -529,17 +539,22 @@ canvas,
 
 .paramBox input{
 
-    width:100px;
-
+    width:80px;
     height:35px;
+
+    font-size:14px;
+
+    text-align:center;
+
+    box-sizing:border-box;
 
 }
 
 
-
 /*====================================
-  パラメータ入力
+  パラメータ入力全体
 ====================================*/
+
 .inputGroup{
 
     display:flex;
@@ -548,48 +563,37 @@ canvas,
 
     align-items:center;
 
-    gap:20px;
+    gap:15px;
+
+    width:100%;
 
 }
-/* チェックボックス */
-.inputGroup input[type="checkbox"]{
-    margin-right:8px;
-}
 
-#lock{
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-}
-
-/* 読み込みボタン */
-#loadCsv{
-    grid-column:1 / -1;
-
-    padding:10px;
-    font-size:16px;
-}
 
 /*====================================
-  階ごとの入力欄
+  階数・減衰定数
 ====================================*/
-.parameterHeader,
-.parameterRow{
+
+.paramBox{
 
     display:grid;
 
-    grid-template-columns:80px repeat(var(--floor),120px);
+    grid-template-columns:80px 80px;
 
-    gap:15px;
+    column-gap:15px;
 
     align-items:center;
 
-    justify-content:center;
+    width:max-content;
+
+    margin:0 auto;
 
 }
 
 
-.floorLabel{
+.paramBox label{
+
+    width:80px;
 
     text-align:center;
 
@@ -598,29 +602,25 @@ canvas,
 }
 
 
-.massInput,
-.stiffnessInput{
+.paramBox input{
 
-    width:120px;
+    width:80px;
 
     height:35px;
+
+    box-sizing:border-box;
+
+    font-size:14px;
 
     text-align:center;
 
 }
-#basicParameter{
 
-    width:100%;
 
-    display:flex;
+/*====================================
+  階ごとの入力欄
+====================================*/
 
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:10px;
-
-}
 #floorParameterSection{
 
     width:100%;
@@ -628,13 +628,103 @@ canvas,
     overflow-x:auto;
 
 }
+
+
 #floorParameters{
+
+    display:grid;
+
+    grid-template-columns:
+        80px repeat(var(--floor),80px);
+
+    column-gap:15px;
+
+    row-gap:10px;
 
     width:max-content;
 
+    /*
+     * 1Fの入力欄を
+     * .paramBoxの入力欄と同じ位置にする
+     */
+    margin-left:calc(50% - 85px);
+
+    text-align:center;
+
+}
+
+
+/*====================================
+  階数表示・入力行
+====================================*/
+
+.parameterHeader,
+.parameterRow{
+
+    display:contents;
+
+}
+
+
+/* 質量・剛性のラベル */
+
+.floorLabel{
+
+    width:80px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+}
+
+
+/* 質量・剛性の入力欄 */
+
+.massInput,
+.stiffnessInput{
+
+    width:80px;
+
+    height:35px;
+
+    box-sizing:border-box;
+
+    text-align:center;
+
+}
+
+
+/*====================================
+  1F・2F・3F... の表示
+====================================*/
+
+.parameterHeader{
+
+    text-align:center;
+
+    font-weight:bold;
+
+}
+
+
+/*====================================
+  階ごとの入力欄のスクロール
+====================================*/
+
+#floorParameterSection{
+
+    width:100%;
+
+    max-width:100%;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
 }
 /*====================================
-  入力欄
+  解析・再生ボタン
 ====================================*/
 
 #start,
@@ -646,29 +736,62 @@ canvas,
     background:white;
 
     border:2px solid black;
+
     border-radius:5px;
 
     font-size:20px;
+
     font-weight:bold;
 
     cursor:pointer;
 
 }
 
-.loader {
 
-    margin: auto;
+/*====================================
+  スマホ表示
+====================================*/
 
-    width: 50px;
-    height: 50px;
+@media (max-width:768px){
 
-    border: 6px solid #ddd;
+    .inputGroup{
 
-    border-top: 6px solid #333;
+        width:100%;
 
-    border-radius: 50%;
+        align-items:center;
 
-    animation: spin 1s linear infinite;
+    }
+
+
+    .paramBox{
+
+        grid-template-columns:80px 80px;
+
+        column-gap:15px;
+
+        width:max-content;
+
+    }
+
+
+    #floorParameterSection{
+
+        width:100%;
+
+        overflow-x:auto;
+
+    }
+
+
+    #floorParameters{
+
+        /*
+         * スマホでも1Fの位置を
+         * 階数・減衰定数の入力欄に合わせる
+         */
+        margin-left:calc(50% - 85px);
+
+    }
 
 }
 
@@ -948,7 +1071,7 @@ canvas,
 
     border-radius:6px;
 
-    background:#2196F3;
+    background: #939393;
 
     color:white;
 
@@ -983,18 +1106,78 @@ canvas,
 
 @media (max-width:768px){
 
+    html,
     body{
-        display:block;
-        width:95%;
+
+        width:100%;
+
+        margin:0;
+
+        padding:0;
+
         overflow-x:hidden;
+
+        box-sizing:border-box;
+
     }
 
+
+    *,
+    *::before,
+    *::after{
+
+        box-sizing:border-box;
+
+    }
+
+
+    /* ==========================
+       ヘッダー
+    ========================== */
+
+    #header{
+
+        width:100%;
+
+        height:60px;
+
+        margin:0;
+
+        padding:0 20px;
+
+    }
+
+
+    /* ==========================
+       メニュー
+    ========================== */
+
+    #menu{
+
+        position:absolute;
+
+        left:0;
+
+        width:100%;
+
+        box-sizing:border-box;
+
+    }
+
+
+    /* ==========================
+       メインコンテナ
+    ========================== */
 
     .main-container{
 
         width:100%;
 
+        max-width:100%;
+
         padding:0;
+
+        margin:0;
 
         border:none;
 
@@ -1003,23 +1186,15 @@ canvas,
     }
 
 
-    /* ヘッダー */
-    header{
+    /* ==========================
+       メイン
+    ========================== */
 
-        width:100%;
-
-        height:60px;
-
-    }
-
-
-
-
-
-    /* メイン */
     #content{
 
         width:100%;
+
+        max-width:100%;
 
         margin:0;
 
@@ -1030,31 +1205,34 @@ canvas,
     }
 
 
-    /* canvas */
+    /* ==========================
+       Canvas
+    ========================== */
+
     canvas{
+
+        display:block;
 
         width:100%;
 
+        max-width:100%;
+
         height:auto;
 
-    }
-
-
-    /* 入力欄 */
-    #toc3 .inputGroup{
-
-        display:flex;
-
-        flex-direction:column;
-
-        gap:10px;
+        margin:0 auto;
 
     }
 
+
+    /* ==========================
+       パラメータ
+    ========================== */
 
     .paramBox{
 
         width:100%;
+
+        max-width:100%;
 
     }
 
@@ -1062,22 +1240,26 @@ canvas,
     input,
     select{
 
-        width:100%;
+        max-width:100%;
 
         box-sizing:border-box;
 
     }
 
 
-    /* ページ切替ボタン */
+    /* ==========================
+       ページ切替ボタン
+    ========================== */
+
     .pageButton{
 
         width:100%;
 
+        max-width:100%;
+
         justify-content:center;
 
     }
-
 
 }
 

@@ -36,14 +36,16 @@
             <span id="manualClose">×</span>
 
             <h2>使い方</h2>
-
+            <hr>
             <p>
                 このサイトでは、建物を質点系モデルとして設定し、地震応答解析を行うことで、地震時の建物挙動を見ることができます。<br>
-
             </p>
             <p>
                 「ﾊﾟﾗﾒｰﾀｰ」で建物の階数、質量、剛性、減衰比を設定し、
-                「解析」で入力地震波を選択して解析を実行すると、「結果」で地震時の質点系の挙動を確認できます。
+                「解析」で入力地震波を選択して解析を実行すると、「結果」で地震波に対する質点系の挙動を確認できます。
+            </p>
+            <p>
+                解析実行後、入力を修正する場合は「解析」にある「鍵マーク」のボタンを押して再度、解析を行ってください。
             </p>
 
 
@@ -70,10 +72,9 @@
             <span id="aboutClose">×</span>
 
             <h2>このサイトについて</h2>
-
-            <p>
-                このサイトでは、地震動を受けた質点系の時刻歴応答を確認できます。
-            </p>
+            <hr>
+            <h3>ソースコード</h3>
+            <a href="https://github.com/yadigo2022-web/demo">https://github.com/yadigo2022-web/demo</a>
             <div style="height:20px;"></div>
             <h3>免責事項</h3>
             <p>
@@ -90,7 +91,7 @@
     <main id="content">
 
         <div id="canvasArea">
-            <canvas id="canvas" width="500" height="500"></canvas>
+            <canvas id="canvas" width="300" height="300"></canvas>
         </div>
 
 
@@ -104,7 +105,7 @@
             <button id="page2">
                 解析
             </button>
-            <button id="page3">
+            <button id="page3" disabled>
                 結果
             </button>
         </div>
@@ -117,6 +118,7 @@
 
                 <!-- 入力画面 -->
                 <section id="toc3">
+                    <h2>① パラメーターを入力</h2>
 
                     <!-- 階数・減衰定数 -->
                     <section id="basicParameter">
@@ -153,6 +155,7 @@
                         </div>
 
                     </section>
+                    <div style="height:20px;"></div>
 
 
 
@@ -162,6 +165,7 @@
                         <div id="floorParameters"></div>
 
                     </section>
+                    <div style="height:20px;"></div>
 
                 </section>
 
@@ -182,10 +186,16 @@
                         <option>Hachinohe</option>
                     </select>
                     <h2>③ 解析を実行する</h2>
+                    <div style="display:flex; gap:10px;">
 
-                    <button id="start">
-                        ▷
-                    </button>
+
+                        <button id="start">
+                            ▷
+                        </button>
+                        <button id="unlock" disabled>
+                            🔓︎
+                        </button>
+                    </div>
 
 
                 </section>
@@ -210,6 +220,7 @@
                         </button>
 
 
+
                         <input
                                 type="range"
                                 id="progress"
@@ -219,6 +230,16 @@
 
                         <div id="timeText">
                             0.00 / 0.00 秒
+                        </div>
+                        <div style="height:20px;"></div>
+                        <input
+                                type="range"
+                                id="dipscale"
+                                min="1"
+                                max="10"
+                                value="1">
+                        <div id="dipscaleText">
+                            倍率：1倍
                         </div>
 
 

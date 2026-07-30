@@ -165,7 +165,7 @@ window.onload = async function(){
     ];
 
 
-// 非表示関数
+    // 非表示関数
     function hidePages(){
 
         pages.forEach(page => {
@@ -177,7 +177,7 @@ window.onload = async function(){
     }
 
 
-// ① 諸元
+    // ① 諸元
     page1.onclick=function(){
 
         hidePages();
@@ -187,7 +187,7 @@ window.onload = async function(){
     };
 
 
-// ② 地震波
+    // ② 解析
     page2.onclick=function(){
 
         hidePages();
@@ -197,7 +197,7 @@ window.onload = async function(){
     };
 
 
-// ③ 解析
+    // ③ 結果
     page3.onclick=function(){
 
         hidePages();
@@ -282,7 +282,7 @@ window.onload = async function(){
     }
 
 
-// このサイトについて
+    // このサイトについて
     setupModal(
         "about",
         "aboutModal",
@@ -290,7 +290,7 @@ window.onload = async function(){
     );
 
 
-// 使い方
+    // 使い方
     setupModal(
         "manual",
         "manualModal",
@@ -396,125 +396,163 @@ window.onload = async function(){
     // 階数に応じて入力欄を作成
     // ==========================
 
-    if (floorInput && floorParameters) {
+    function createFloorInputs() {
 
-        floorInput.addEventListener("input", function () {
+        const n = Number(floorInput.value);
 
-            const n = Number(this.value);
+        floorParameters.innerHTML = "";
 
-            floorParameters.innerHTML = "";
+        if (n <= 0) return;
 
-            if (n <= 0) return;
+        // CSSに階数を渡す
+        floorParameters.style.setProperty("--floor", n);
+
+        // ==========================
+        // 階数表示
+        // ==========================
+
+        floorParameters.innerHTML += `
+
+    <div class="parameterHeader">
+
+        <div></div>
+
+        ${Array.from(
+            { length: n },
+            (_, i) => `<div>${i + 1}F</div>`
+        ).join("")}
+
+    </div>
+
+    `;
+
+        // ==========================
+        // 質量
+        // ==========================
+
+        floorParameters.innerHTML += `
+
+        <div class="parameterRow">
+
+        <div class="floorLabel">
+            質量<br>(ton)
+        </div>
+
+        ${Array.from(
+            { length: n },
+            (_, i) => `
+                <input
+                    class="massInput"
+                    type="number"
+                    id="mass${i + 1}"
+                    value="1000">
+            `
+        ).join("")}
+
+    </div>
+
+    `;
+
+        // ==========================
+        // 剛性
+        // ==========================
+
+        floorParameters.innerHTML += `
+
+    <div class="parameterRow">
+
+        <div class="floorLabel">
+            剛性<br>(kN/mm)
+        </div>
+
+        ${Array.from(
+            { length: n },
+            (_, i) => `
+                <input
+                    class="stiffnessInput"
+                    type="number"
+                    id="stiffness${i + 1}"
+                    value="40">
+            `
+        ).join("")}
+
+    </div>
+
+    `;
+
+        // ==========================
+        // Canvas更新
+        // ==========================
+
+        const storys = n;
+
+        const x = new Array(storys + 1).fill(canvas.width / 2);
+
+        draw(storys, x);
+    }
+
+    // 階数変更時
+    floorInput.addEventListener("input", createFloorInputs);
 
 
-            // CSSに階数を渡す
-            floorParameters.style.setProperty(
-                "--floor",
-                n
+
+    floorInput.value = 1;
+
+    createFloorInputs();
+
+
+    let totalDispData = [];
+
+    // ==========================
+    // 解析
+    // ==========================
+    const unlockButton = document.getElementById("unlock");
+
+    if (unlockButton) {
+
+        unlockButton.addEventListener("click", async function () {
+            unlock.disabled = true;
+            unlock.textContent = "🔓︎";
+            page3.disabled = true;
+            const targets = document.querySelectorAll(
+                "#floor, #damping, #floorParameters, #inputSeismicWave, #start"
             );
+            targets.forEach(el => {
+                el.disabled = false;
 
-
-            // ==========================
-            // 階数表示
-            // ==========================
-
-            floorParameters.innerHTML += `
-
-            <div class="parameterHeader">
-
-                <div></div>
-
-                ${Array.from(
-                {length:n},
-                (_,i)=>`<div>${i+1}F</div>`
-            ).join("")}
-
-            </div>
-
-        `;
-
-
-
-            // ==========================
-            // 質量
-            // ==========================
-
-            floorParameters.innerHTML += `
-
-            <div class="parameterRow">
-
-                <div class="floorLabel">
-                    質量
-                </div>
-
-                ${Array.from(
-                {length:n},
-                (_,i)=>
-                    `
-                    <input
-                        class="massInput"
-                        type="number"
-                        id="mass${i+1}"
-                        value="1000">
-                    `
-            ).join("")}
-
-            </div>
-
-        `;
-
-
-
-            // ==========================
-            // 剛性
-            // ==========================
-
-            floorParameters.innerHTML += `
-
-            <div class="parameterRow">
-
-                <div class="floorLabel">
-                    剛性
-                </div>
-
-                ${Array.from(
-                {length:n},
-                (_,i)=>
-                    `
-                    <input
-                        class="stiffnessInput"
-                        type="number"
-                        id="stiffness${i+1}"
-                        value="40">
-                    `
-            ).join("")}
-
-            </div>
-
-        `;
-
-
-
-            // ==========================
-            // Canvas更新
-            // ==========================
+            });
+            document.querySelectorAll(".massInput, .stiffnessInput").forEach(input => {
+                input.disabled = false;
+            });
 
             const storys = Number(floorInput.value);
-
             const x = new Array(storys + 1)
                 .fill(canvas.width / 2);
 
 
             draw(storys,x);
 
+            // 時間を最初に戻す
+            t = 0;
+
+            // プログレスバーを0へ
+            progress.value = 0;
+
+            // 時間表示を更新
+            const totalTime = ((totalDispData.length - 1) * dt).toFixed(2);
+            timeText.textContent = `0.00 / ${totalTime} 秒`;
+
+            // 変位倍率
+            dipscale.value = 1;
+            displacementScale = 1;
+            dipscaleText.textContent = "倍率：1倍";
+
+            // 再生ボタン表示を戻す
+            lookButton.innerHTML = "▷";
+
         });
-
     }
-    let totalDispData = [];
 
-    // ==========================
-    // Javaへデータ送信
-    // ==========================
 
     const startButton = document.getElementById("start");
 
@@ -637,27 +675,49 @@ window.onload = async function(){
                 document.getElementById("complete").style.display = "none";
 
             });
+            page3.disabled = false;
+            const targets = document.querySelectorAll(
+                "#floor, #damping, #floorParameters, #inputSeismicWave, #start"
+            );
+            targets.forEach(el => {
+                 el.disabled = true;
+
+            });
+            document.querySelectorAll(".massInput, .stiffnessInput").forEach(input => {
+                input.disabled = true;
+            });
+            unlock.disabled = false;
+            unlock.textContent = "🔒︎";
 
 
         });
 
     }
+
     // ==========================
     // 解析結果を見る（再生・一時停止）
     // ==========================
 
     let t = 0;
-
-
-
-
-
     let playing = false;
     let timer = null;
+    let displacementScale = 1;
 
     const lookButton = document.getElementById("look");
     const progress = document.getElementById("progress");
     const timeText = document.getElementById("timeText");
+    const dipscale = document.getElementById("dipscale");
+    const dipscaleText = document.getElementById("dipscaleText");
+
+    dipscale.addEventListener("input", function(){
+
+        displacementScale = Number(this.value);
+
+        dipscaleText.textContent = `倍率：${displacementScale}倍`;
+
+    });
+
+
 
 
     // 無効化する対象
@@ -784,7 +844,7 @@ window.onload = async function(){
 
 
                 x.push(
-                    canvas.width / 2 + totalDispData[t][i] * 2
+                    canvas.width / 2 + totalDispData[t][i] * displacementScale
                 );
 
             }
