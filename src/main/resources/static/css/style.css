@@ -4,177 +4,106 @@ body{
     justify-content:center;
     background: white;
 }
+
 .main-container{
-
     width:100%;
-
-    max-width:950px;
-
+    max-width:1000px;
     margin:0 auto;
-
     display:grid;
-
-    position:relative;   /* 追加 */
-
+    position:relative;
     grid-template-rows:60px 1fr;
-
     grid-template-areas:
         "header"
         "content";
-
 }
 
-/*====================================
-  キャンバス
-====================================*/
-
-canvas{
-
-
-
-    width:90%;
-
-    height:auto;
-
-    aspect-ratio:1 / 1;
-
-    margin:auto;
-
-    border:1px solid black;
-    position:relative;
-    z-index:auto;
-
-
-
-}
-#canvasArea{
-
-    grid-area:canvas;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    position:relative;
-
-    z-index:6000;
-
-}
-
-
-
-#bottomArea{
-
-    grid-area:bottom1;
-
-    width:100%;
-
-    height:100%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-#pageContainer{
-
-    width:100%;
-
-    max-width:100%;
-
-    min-width:0;   /* 重要 */
-
-    overflow:hidden;
-
-}
-
-/*====================================
-  メインコンテンツ
-====================================*/
 #header{
-
     height:60px;
-
     width:100%;
-
     box-sizing:border-box;
-
     background:white;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     padding:0 20px;
-
     position:relative;
-
     z-index:2000;
-
 }
 
-/* メニュー */
-#menu{
-
-    position:absolute;
-
-    top:60px;
-
-    left:0;
-
-    width:100%;
-
-    height:0;
-
-    overflow:hidden;
-
-    background:white;
-
-    transition:height .3s;
-
-    z-index:7000;
-
-}
-
-
-#menu.show{
-
-    height:300px;
-
-}
-
-
-/* メニュー内リンク */
-#menu a{
-
-    display:block;
-
-    padding:20px;
-
-}
-
-/* ボタン */
 #menuButton{
     position:absolute;
     top:5px;
     right:0px;
-
     width:50px;
     height:50px;
-
     font-size:30px;
-
     border:none;
     background:none;
     cursor:pointer;
-
     z-index:1001;
+}
+
+
+/*====================================
+  キャンバス
+====================================*/
+canvas{
+    width:90%;
+    height:auto;
+    aspect-ratio:1 / 1;
+    margin:auto;
+    border:1px solid black;
+    position:relative;
+    z-index:auto;
+}
+
+#canvasArea{
+    grid-area:canvas;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    z-index:6000;
+}
+
+#bottomArea{
+    grid-area:bottom1;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#pageContainer{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    overflow:hidden;
+}
+
+/*====================================
+  ヘッダーとメニュー
+====================================*/
+#menu{
+    position:absolute;
+    top:60px;
+    left:0;
+    width:100%;
+    height:0;
+    overflow:hidden;
+    background:white;
+    transition:height .3s;
+    z-index:7000;
+}
+
+#menu.show{
+    height:300px;
+}
+
+#menu a{
+    display:block;
+    padding:20px;
 }
 
 #manual,
@@ -184,109 +113,68 @@ canvas{
     display: inline-block;
     width: fit-content;
 }
+
 #helpModal{
-
     display:none;
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:100%;
-
     background:rgba(0,0,0,0.5);
-
     justify-content:center;
     align-items:center;
-
     z-index:9999;
-
 }
-
 
 .helpBox{
-
     position:relative;
-
     width:90%;
-
     height:90%;
-
     margin:3% auto;
-
     background:white;
-
     border-radius:10px;
-
     overflow:hidden;
-
     justify-content:center;
     align-items:center;
-
 }
+
 #manualModal,
 #aboutModal{
-
     display:none;
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:100%;
-
     background:rgba(0,0,0,0.5);
-
     z-index:9999;
     overflow-y: auto; /* 縦スクロール可能 */
-
 }
 
 .manualBox,
 .aboutBox{
-
     position:absolute;
-
     top:50%;
     left:50%;
-
     transform:translate(-50%,-50%);
-
-
     width: 80%;
     max-width: 600px;
-
     min-height:300px;
-
-
     background:white;
-
     padding:30px;
-
     border-radius:10px;
-
 }
 
 #manualClose,
 #helpClose,
 #aboutClose{
-
     position:absolute;
-
     right:15px;
     top:10px;
-
-
     font-size:30px;
-
     cursor:pointer;
-
 }
-
 
 .helpBox iframe{
     width:100%;
@@ -295,52 +183,32 @@ canvas{
 }
 
 #content{
-
     grid-area:content;
-
     display:grid;
-
     grid-template-columns:
-        1fr 1fr;   /* 左右半分 */
-
+        1fr 1fr;
     grid-template-rows:
         80px 1fr;  /* 右側の上下 */
-
     grid-template-areas:
-
         "canvas button"
-
         "canvas bottom1";
-
     background:white;
-
-
 }
 
 #bottomArea{
-
     grid-area:bottom1;
-
     width:100%;
-
-    min-width:0;   /* 重要 */
-
+    min-width:0;
     overflow:hidden;
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
 }
-
 
 #pageContainer{
     width:100%;
     height:100%;
 }
-
 
 .inputGroup{
     display:flex;
@@ -354,397 +222,223 @@ canvas{
 ============================== */
 #toc3,
 #sec2{
-
-
     flex-direction:column;
-
     justify-content:center;
-
     align-items:center;
-
 }
+
 #sec3{
-
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
     align-items:center;
-
-
-
-}
-
-
-#resultSection{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-
-
-}
-
-#disableArea{
-    display:none;
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
-
-    background:rgba(0,0,0,0.4);
-
-    z-index:5000;
-
-}
-
-canvas,
-#resultSection{
-
-    position:relative;
-
-    z-index:6000;
-
 }
 
 #sec2,
 #sec3{
-
     display:none;
+}
 
+#resultSection{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+#disableArea{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+    z-index:5000;
+}
+
+canvas,
+#resultSection{
+    position:relative;
+    z-index:6000;
 }
 
 #sec2.show,
 #sec3.show{
-
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
-
     align-items:center;
-
     height:100%;
-
 }
 
 .disabled{
-
     opacity:0.3;
-
     pointer-events:none;
-
 }
-
 
 .pageButton{
     grid-area:button;
-
     width:100%;
-
     display:flex;
-
     justify-content:center;
-
     gap:10px;
     padding-top:20px;
-
 }
+
 #page1,
 #page2,
 #page3{
-
     width:120px;
     height:50px;
-
     background:white;
-
     border:2px solid black;
-
-
     font-size:20px;
     font-weight:bold;
-
     cursor:pointer;
-
 }
+
 #toc3 h2,
 #sec2 h2,
 #sec3 h2{
-
     width:100%;
-
     text-align:center;
-
-
     margin-top: 15px;
-
 }
 
 
-/* 選択中 */
 #page1.active,
 #page2.active,
 #page3.active{
-
     background:#555;
-
     color:white;
-
 }
 
 /*====================================
   階数・減衰定数
 ====================================*/
-
 #basicParameter{
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
-    gap:15px;   /* ← ここで行間を調整 */
-
+    gap:15px;
     width:100%;
-
 }
-
-
-
-
-.paramBox label{
-
-    width:80px;
-
-    text-align:center;
-
-    font-weight:bold;
-
-}
-
-
-.paramBox input{
-
-    width:80px;
-    height:35px;
-
-    font-size:14px;
-
-    text-align:center;
-
-    box-sizing:border-box;
-
-}
-
 
 /*====================================
   パラメータ入力全体
 ====================================*/
-
 .inputGroup{
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     gap:15px;
-
     width:100%;
-
 }
-
 
 /*====================================
   階数・減衰定数
 ====================================*/
-
 .paramBox{
-
     display:grid;
-
     grid-template-columns:80px 80px;
-
     column-gap:15px;
-
     align-items:center;
-
     width:max-content;
-
     margin:0 auto;
-
 }
-
 
 .paramBox label{
-
     width:80px;
-
     text-align:center;
-
     font-weight:bold;
-
 }
-
 
 .paramBox input{
-
     width:80px;
-
     height:35px;
-
     box-sizing:border-box;
-
     font-size:14px;
-
     text-align:center;
-
 }
-
 
 /*====================================
   階ごとの入力欄
 ====================================*/
-
 #floorParameterSection{
-
     width:100%;
-
     overflow-x:auto;
-
 }
 
-
 #floorParameters{
-
     display:grid;
-
     grid-template-columns:
         80px repeat(var(--floor),80px);
-
     column-gap:15px;
-
     row-gap:10px;
-
     width:max-content;
-
     /*
      * 1Fの入力欄を
      * .paramBoxの入力欄と同じ位置にする
      */
     margin-left:calc(50% - 85px);
-
     text-align:center;
-
 }
-
 
 /*====================================
   階数表示・入力行
 ====================================*/
-
 .parameterHeader,
 .parameterRow{
-
     display:contents;
-
 }
-
-
-/* 質量・剛性のラベル */
 
 .floorLabel{
-
     width:80px;
-
     text-align:center;
-
     font-weight:bold;
-
 }
-
 
 /* 質量・剛性の入力欄 */
-
 .massInput,
 .stiffnessInput{
-
     width:80px;
-
     height:35px;
-
     box-sizing:border-box;
-
     text-align:center;
-
 }
-
 
 /*====================================
   1F・2F・3F... の表示
 ====================================*/
-
 .parameterHeader{
-
     text-align:center;
-
     font-weight:bold;
-
 }
-
 
 /*====================================
   階ごとの入力欄のスクロール
 ====================================*/
-
 #floorParameterSection{
-
     width:100%;
-
     max-width:100%;
-
     overflow-x:auto;
-
     overflow-y:hidden;
-
 }
+
 /*====================================
   解析・再生ボタン
 ====================================*/
-
 #start,
 #look{
-
     width:120px;
     height:45px;
-
     background:white;
-
     border:2px solid black;
-
     border-radius:5px;
-
     font-size:20px;
-
     font-weight:bold;
-
     cursor:pointer;
-
 }
 
 
@@ -798,156 +492,100 @@ canvas,
 /* ==========================
    地震波選択
 ========================== */
-
 #inputSeismicWave{
-
     width:220px;
-
     height:45px;
-
     padding:0 15px;
-
     font-size:18px;
-
     font-weight:bold;
-
     background:white;
-
     border:2px solid black;
-
     border-radius:5px;
-
     cursor:pointer;
-
     text-align:center;
-
 }
-
 
 /* 選択時 */
 #inputSeismicWave:hover{
-
     background:#f0f0f0;
-
 }
-
 
 /* フォーカス時 */
 #inputSeismicWave:focus{
-
     outline:none;
-
     background:#eeeeee;
-
 }
 
 /* ==========================
    入力エラーダイアログ
 ========================== */
-
 #errorModal{
-
     display:none;
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:100%;
-
     background:rgba(0,0,0,0.5);
-
     z-index:9999;
 }
 
 .modalContent{
-
     position:absolute;
-
     top:50%;
     left:50%;
-
     transform:translate(-50%,-50%);
-
     width:350px;
-
     background:white;
-
     padding:30px;
-
     border-radius:10px;
-
     text-align:center;
 }
 
 /* 全画面を覆う */
 #loading{
     display:none;
-
     position:fixed;
     top:0;
     left:0;
-
     width:100%;
     height:100%;
-
     background:rgba(0,0,0,0.4);
-
     justify-content:center;
     align-items:center;
-
     z-index:9999;
 }
 
 /* 真ん中のボックス */
 .loadingBox{
-
     width:400px;
     padding:35px;
-
     background:#d8d8d8;
-
     border-radius:10px;
-
     text-align:center;
-
     box-shadow:0 0 20px rgba(0,0,0,0.3);
 }
 
 /* バーの外枠 */
 .progress{
-
     width:100%;
     height:18px;
-
     background:#555;
-
     overflow:hidden;
-
     border-radius:3px;
 }
-
 
 /* 背景 */
 #loading2{
     display:none;
-
     position:fixed;
     top:0;
     left:0;
-
     width:100%;
     height:100%;
-
-
-
     background:rgba(0,0,0,0.65);
-
     justify-content:center;
     align-items:center;
-
     z-index:9999;
 }
 
@@ -959,306 +597,193 @@ canvas,
 
 /* 回転する円 */
 .spinner{
-
     width:80px;
     height:80px;
-
     border:10px solid #666;
     border-top:10px solid #919191;
-
     border-radius:50%;
-
     animation:spin 1s linear infinite;
-
     margin:auto;
 }
 
 /* 文字 */
 .loadingBox p{
-
     margin-top:25px;
-
     color: #0b0b0b;
-
     font-size:28px;
-
     font-family:Arial, sans-serif;
 }
 
 @keyframes spin{
-
     0%{
         transform:rotate(0deg);
     }
-
     100%{
         transform:rotate(360deg);
     }
-
 }
 
 /* 解析終了 */
 #complete{
     display:none;
-
     position:fixed;
     top:0;
     left:0;
-
     width:100%;
     height:100%;
-
-    background:rgba(255,255,255,0.8);
-
+    background:rgba(0,0,0,0.4);
     justify-content:center;
     align-items:center;
-
     z-index:10000;
 }
 
 .completeBox{
-
     width:380px;
-
     padding:40px;
-
     background:white;
-
     border-radius:12px;
-
     text-align:center;
-
     box-shadow:0 5px 20px rgba(0,0,0,0.25);
 }
 
 .check{
-
     width:90px;
     height:90px;
-
     margin:0 auto 25px;
-
     border-radius:50%;
-
-    background:#4CAF50;
-
+    background: #656464;
     color:white;
-
     font-size:60px;
-
     line-height:90px;
-
     font-weight:bold;
 }
 
 .completeBox h2{
-
     margin-bottom:35px;
-
     color:#333;
-
     font-size:28px;
 }
 
 #okButton{
-
     width:120px;
     height:45px;
-
     font-size:18px;
-
-    border:none;
-
+    border:2px solid black;
     border-radius:6px;
-
-    background: #939393;
-
-    color:white;
-
+    background: white;
+    color:black;
     cursor:pointer;
 }
 
 #okButton:hover{
-
-    background:#1976D2;
+    background: #919191;
 }
+
 #screenLock{
-
     display:none;
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:100%;
-
     background:rgba(0,0,0,0.5);
-
     z-index:5000;
-
 }
 
 /* ==========================
    スマホ表示
 ========================== */
-
 @media (max-width:768px){
-
     html,
     body{
-
         width:100%;
-
         margin:0;
-
         padding:0;
-
         overflow-x:hidden;
-
         box-sizing:border-box;
-
     }
-
 
     *,
     *::before,
     *::after{
-
         box-sizing:border-box;
-
     }
-
 
     /* ==========================
        ヘッダー
     ========================== */
-
     #header{
-
         width:100%;
-
         height:60px;
-
         margin:0;
-
         padding:0 20px;
-
     }
-
 
     /* ==========================
        メニュー
     ========================== */
-
     #menu{
-
         position:absolute;
-
         left:0;
-
         width:100%;
-
         box-sizing:border-box;
-
     }
-
 
     /* ==========================
        メインコンテナ
     ========================== */
-
     .main-container{
-
         width:100%;
-
         max-width:100%;
-
         padding:0;
-
         margin:0;
-
         border:none;
-
         display:block;
-
     }
-
 
     /* ==========================
        メイン
     ========================== */
-
     #content{
-
         width:100%;
-
         max-width:100%;
-
         margin:0;
-
         padding:10px;
-
         display:block;
-
     }
-
 
     /* ==========================
        Canvas
     ========================== */
-
     canvas{
-
         display:block;
-
         width:100%;
-
         max-width:100%;
-
         height:auto;
-
         margin:0 auto;
-
     }
-
 
     /* ==========================
        パラメータ
     ========================== */
-
     .paramBox{
-
         width:100%;
-
         max-width:100%;
-
     }
-
 
     input,
     select{
-
         max-width:100%;
-
         box-sizing:border-box;
-
     }
-
 
     /* ==========================
        ページ切替ボタン
     ========================== */
-
     .pageButton{
-
         width:100%;
-
         max-width:100%;
-
         justify-content:center;
-
     }
 
 }

@@ -1,13 +1,9 @@
 window.onload = async function(){
-
-
     // ==========================
     // Canvas
     // ==========================
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
-
-    // 入力欄を取得
     const floorInput = document.getElementById("floor");
     const floorParameters = document.getElementById("floorParameters");
 

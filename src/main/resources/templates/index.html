@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>地震応答解析</title>
-
     <link rel="icon" href="/images/1.png">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -16,25 +15,17 @@
     <header id="header">
         <h2>地震応答解析</h2>
         <button id="menuButton">☰</button>
-
-
     </header>
 
-
     <div id="menu">
-
         <a id="manual">使い方</a>
         <a id="help">地震応答解析について知る</a>
         <a id="about">このサイトについて</a>
-
     </div>
 
     <div id="manualModal">
-
         <div class="manualBox">
-
             <span id="manualClose">×</span>
-
             <h2>使い方</h2>
             <hr>
             <p>
@@ -47,30 +38,20 @@
             <p>
                 解析実行後、入力を修正する場合は「解析」にある「鍵マーク」のボタンを押して再度、解析を行ってください。
             </p>
-
-
         </div>
-
     </div>
 
 
     <div id="helpModal">
-
         <div class="helpBox">
-
             <span id="helpClose">×</span>
-
             <iframe src="/help"></iframe>
-
         </div>
-
     </div>
+
     <div id="aboutModal">
-
         <div class="aboutBox">
-
             <span id="aboutClose">×</span>
-
             <h2>このサイトについて</h2>
             <hr>
             <h3>ソースコード</h3>
@@ -80,9 +61,7 @@
             <p>
                 本ウェブサイトの利用に際して発生した一切の損害等について、当方は責任を負いかねますので、あらかじめご了承ください。
             </p>
-
         </div>
-
     </div>
 
     <!-- ==========================
@@ -94,14 +73,11 @@
             <canvas id="canvas" width="300" height="300"></canvas>
         </div>
 
-
-        <!-- ページ切替ボタン -->
+        <!-- 切替ボタン -->
         <div class="pageButton">
-
             <button id="page1">
                 ﾊﾟﾗﾒｰﾀｰ
             </button>
-
             <button id="page2">
                 解析
             </button>
@@ -112,32 +88,24 @@
 
         <!-- セクション -->
         <div id="bottomArea">
-
             <div id="pageContainer">
-
-
                 <!-- 入力画面 -->
                 <section id="toc3">
                     <h2>① パラメーターを入力</h2>
 
                     <!-- 階数・減衰定数 -->
                     <section id="basicParameter">
-
                         <div class="paramBox">
-
                             <label for="floor">
                                 階数
                             </label>
-
                             <input
                                     type="number"
                                     id="floor"
                                     min="1"
                                     step="1"
                                     value="1">
-
                         </div>
-
 
                         <div class="paramBox">
 
@@ -157,23 +125,15 @@
                     </section>
                     <div style="height:20px;"></div>
 
-
-
                     <!-- 質量・剛性 -->
                     <section id="floorParameterSection">
-
                         <div id="floorParameters"></div>
-
                     </section>
                     <div style="height:20px;"></div>
-
                 </section>
 
-
-
-                <!-- ②画面 -->
+                <!-- 解析 -->
                 <section id="sec2">
-
                     <h2>② 地震波を選択</h2>
                     <label
                             id="earthquakeLabel"
@@ -190,7 +150,7 @@
 
 
                         <button id="start">
-                            ▷
+                            ▶
                         </button>
                         <button id="unlock" disabled>
                             🔓︎
@@ -199,28 +159,20 @@
 
 
                 </section>
-                <!-- ③画面 -->
+                <!-- 結果 -->
                 <section id="sec3">
 
                     <!-- ③ 解析実行 -->
                     <section id="analysisSection">
-
-
-
                     </section>
 
-
-                    <!-- ④ 結果表示 -->
                     <section id="resultSection">
 
                         <h2>④ 解析結果を見る</h2>
 
                         <button id="look">
-                            ▷
+                            ▶
                         </button>
-
-
-
                         <input
                                 type="range"
                                 id="progress"
@@ -241,42 +193,28 @@
                         <div id="dipscaleText">
                             倍率：1倍
                         </div>
-
-
-
-
                     </section>
-
                 </section>
-
             </div>
 
         </div>
-
-
 
         <!-- 完了画面 -->
         <div id="complete">
-
             <div class="completeBox">
-
                 <div class="check">
                     ✓
                 </div>
-
                 <h2>
                     解析が完了しました
                 </h2>
-
                 <button id="okButton">
                     OK
                 </button>
-
             </div>
-
         </div>
 
-        <!-- ローディング -->
+        <!-- 解析中の画面 -->
         <div id="loading">
             <div class="loader"></div>
             <p>
@@ -284,38 +222,25 @@
             </p>
         </div>
 
-
-
-        <!-- エラー -->
+        <!-- エラー画面 -->
         <div id="errorModal">
-
             <div class="modalContent">
-
                 <h2>
                     入力エラー
                 </h2>
-
                 <p id="errorText"></p>
-
                 <button id="errorOk">
                     OK
                 </button>
-
             </div>
-
         </div>
-
 
     </main>
 
-
     <div id="loading2">
         <div class="loadingBox">
-
             <div class="spinner"></div>
-
             <p>解析中...</p>
-
         </div>
     </div>
 
