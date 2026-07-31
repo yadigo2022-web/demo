@@ -5,7 +5,7 @@ import java.util.List;
 
 public class test {
     public AnalysisResult TimeHistoryAnalysis(double w, double h, List<List<Double>> data, double dt) {
-        
+
         //============================
         // 時刻歴応答解析
         //============================
