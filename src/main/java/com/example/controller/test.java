@@ -1,78 +1,11 @@
 package com.example.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.core.io.ClassPathResource;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 public class test {
     public AnalysisResult TimeHistoryAnalysis(double w, double h, List<List<Double>> data, double dt) {
-
-        //============================
-        // 地震波データ読込
-        //============================
-        /*
-
-        List<double[]> matrix = new ArrayList<>();
-        List<Double> groundAccList = new ArrayList<>();
-
-        try {
-
-            ClassPathResource resource =
-                    new ClassPathResource("csv/samplewave.csv");
-
-
-            List<String> lines =
-                    new BufferedReader(
-                            new InputStreamReader(resource.getInputStream())
-                    )
-                            .lines()
-                            .toList();
-
-
-            for (int n = 1; n < lines.size(); n++) {
-
-                String line = lines.get(n);
-
-                if (line.isBlank()) {
-                    continue;
-                }
-
-
-                String[] data = line.split(",");
-
-                double[] row = new double[data.length];
-
-
-                for (int i = 0; i < data.length; i++) {
-
-                    row[i] = Double.parseDouble(data[i]);
-
-                }
-
-
-                matrix.add(row);
-
-
-                // 地動加速度（2列目）
-                groundAccList.add(row[1]);
-
-            }
-
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-            return null;
-
-        }
-
-         */
-
-
+        
         //============================
         // 時刻歴応答解析
         //============================

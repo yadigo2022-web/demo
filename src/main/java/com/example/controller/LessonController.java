@@ -16,12 +16,6 @@ public class LessonController {
     }
 
     // トップページ
-    @GetMapping("/menu")
-    public String menu() {
-        return "menu";
-    }
-
-    // シミュレーション画面
     @GetMapping("/index")
     public String index() {
         return "index";

@@ -1,4 +1,5 @@
 body{
+    font-family: "Noto Sans JP", sans-serif;
     margin:0;
     display:flex;
     justify-content:center;
@@ -371,38 +372,23 @@ canvas,
 
 
 .tooltipText{
-
     display:none;
-
     position:absolute;
-
     left:50%;
     bottom:calc(100% + 8px);
-
     transform:translateX(-50%);
-
     background:#333;
     color:white;
-
     padding:6px 10px;
-
     border-radius:5px;
-
     font-size:13px;
-
     white-space:nowrap;
-
     z-index:1000;
-
 }
 
-
 /* 入力欄にカーソルが入ったとき */
-
 .inputTooltip:focus-within .tooltipText{
-
     display:block;
-
 }
 
 /*====================================
@@ -420,10 +406,7 @@ canvas,
     column-gap:15px;
     row-gap:10px;
     width:max-content;
-    /*
-     * 1Fの入力欄を
-     * .paramBoxの入力欄と同じ位置にする
-     */
+    /*1Fの位置を階数・減衰定数の入力欄に合わせる*/
     margin-left:calc(50% - 85px);
     text-align:center;
 }
@@ -498,52 +481,6 @@ canvas,
     justify-content:center;
     align-items:center;
     padding:0;
-}
-
-
-/*====================================
-  スマホ表示
-====================================*/
-@media (max-width:768px){
-    .inputGroup{
-
-        width:100%;
-
-        align-items:center;
-
-    }
-
-
-    .paramBox{
-
-        grid-template-columns:80px 80px;
-
-        column-gap:15px;
-
-        width:max-content;
-
-    }
-
-
-    #floorParameterSection{
-
-        width:100%;
-
-        overflow-x:auto;
-
-    }
-
-
-    #floorParameters{
-
-        /*
-         * スマホでも1Fの位置を
-         * 階数・減衰定数の入力欄に合わせる
-         */
-        margin-left:calc(50% - 85px);
-
-    }
-
 }
 
 /* ==========================
@@ -755,224 +692,124 @@ canvas,
 /* ==========================
    スマホ表示
 ========================== */
-
 @media (max-width:768px){
-
-    /* ==========================
-       全体
-    ========================== */
 
     html,
     body{
-
         width:100%;
-
         margin:0;
-
         padding:0;
-
         overflow-x:hidden;
-
         box-sizing:border-box;
-
     }
-
 
     *,
     *::before,
     *::after{
-
         box-sizing:border-box;
-
     }
-
-
-    /* ==========================
-       ヘッダー
-    ========================== */
 
     #header{
-
         width:100%;
-
         height:60px;
-
         margin:0;
-
         padding:0 20px;
-
     }
-
-
-    /* ==========================
-       メニュー
-    ========================== */
 
     #menu{
-
         position:absolute;
-
         left:0;
-
         width:100%;
-
         box-sizing:border-box;
-
     }
-
 
     /* ==========================
        メインコンテナ
     ========================== */
-
     .main-container{
-
         width:100%;
-
         max-width:100%;
-
         padding:0;
-
         margin:0;
-
         border:none;
-
         display:block;
-
     }
-
 
     /* ==========================
        メイン
     ========================== */
-
     #content{
-
         width:100%;
-
         max-width:100%;
-
         margin:0;
-
         padding:10px;
-
         display:block;
-
     }
-
 
     /* ==========================
        Canvas
     ========================== */
-
     canvas{
-
         display:block;
-
         width:100%;
-
         max-width:100%;
-
         height:auto;
-
         margin:0 auto;
-
     }
-
 
     /* ==========================
        パラメータ全体
     ========================== */
-
     .inputGroup{
-
         width:100%;
-
         max-width:100%;
-
         align-items:center;
-
     }
-
 
     /* ==========================
        階数・減衰定数
     ========================== */
-
     .paramBox{
-
         display:grid;
-
         grid-template-columns:80px 80px;
-
         column-gap:15px;
-
         align-items:center;
-
         justify-content:center;
-
         width:100%;
-
         max-width:100%;
-
     }
-
 
     /* ==========================
        階ごとの入力欄
     ========================== */
-
     #floorParameterSection{
-
         width:100%;
-
         max-width:100%;
-
         overflow-x:auto;
-
         overflow-y:hidden;
-
     }
 
-
+    /*1Fの位置を階数・減衰定数の入力欄に合わせる*/
     #floorParameters{
-
-        /*
-         * 1Fの位置を
-         * 階数・減衰定数の入力欄に合わせる
-         */
-
         margin-left:calc(50% - 85px);
-
     }
-
 
     /* ==========================
        入力欄・セレクト
     ========================== */
-
     input,
     select{
-
         max-width:100%;
-
         box-sizing:border-box;
-
     }
-
 
     /* ==========================
        ページ切替ボタン
     ========================== */
-
     .pageButton{
-
         width:100%;
-
         max-width:100%;
-
         justify-content:center;
-
     }
 
 }

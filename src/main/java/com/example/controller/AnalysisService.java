@@ -23,7 +23,6 @@ public class AnalysisService {
             double dt) {
 
         System.out.println("===== 入力値 =====");
-
         System.out.println();
 
         // 減衰比
