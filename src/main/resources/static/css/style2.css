@@ -119,5 +119,10 @@
         max-width:100%;
         height:auto;
     }
-
+    /* 長い数式の部分だけ横スクロール */
+    .longFormula{
+        width:100%;
+        overflow-x:auto;
+        overflow-y:hidden;
+    }
 }

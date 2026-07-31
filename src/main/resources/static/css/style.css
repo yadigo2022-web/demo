@@ -285,7 +285,14 @@ canvas,
     border:2px solid black;
     font-size:20px;
     font-weight:bold;
+    color: black;
     cursor:pointer;
+}
+/* 追加：無効化されたボタンの文字色と不透明度を固定する */
+#page3:disabled {
+    color: #c8c8c8;
+    opacity: 1; /* Safariや一部ブラウザの透過を防止 */
+    cursor: not-allowed; /* マウスカーソルを禁止マークにする（推奨） */
 }
 
 #toc3 h2,
@@ -348,9 +355,9 @@ canvas,
     width:80px;
     height:35px;
     box-sizing:border-box;
-    font-size:14px;
     font-weight:bold;
     text-align:center;
+    border:2px solid black;
 }
 
 .inputTooltip{
@@ -359,19 +366,29 @@ canvas,
 }
 
 
-.tooltipText{
-    display:none;
-    position:absolute;
-    left:50%;
-    bottom:calc(100% + 8px);
-    transform:translateX(-50%);
-    background:#333;
-    color:white;
-    padding:6px 10px;
-    border-radius:5px;
-    font-size:13px;
-    white-space:nowrap;
-    z-index:1000;
+.tooltipText {
+    display: none;
+    position: absolute;
+
+    /* 入力欄の右側 */
+    left: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 260px;
+    box-sizing: border-box;
+
+    background: #333;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 5px;
+
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: left;
+    white-space: normal;
+
+    z-index: 9999;
 }
 
 /* 入力欄にカーソルが入ったとき */
@@ -421,6 +438,7 @@ canvas,
     box-sizing:border-box;
     text-align:center;
     font-weight:bold;
+    border:2px solid black;
 }
 
 /*====================================
