@@ -276,6 +276,19 @@ window.onload = async function(){
 
     });
 
+    // ==========================
+    // 階数
+    // ==========================
+
+    const floor = document.getElementById("floor");
+
+    for(let i = 1; i <= 60; i++){
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = i;
+        floor.appendChild(option);
+    }
+
 
     // ==========================
     // CSV読込
@@ -433,59 +446,79 @@ window.onload = async function(){
 
 
         // ==========================
-        // 質量
-        // ==========================
+// 質量
+// ==========================
 
         floorParameters.innerHTML += `
 
-        <div class="parameterRow">
+    <div class="parameterRow">
 
-            <div class="floorLabel">
-                質量<br>(ton)
-            </div>
-
-            ${Array.from(
-            { length: n },
-            (_, i) => `
-                    <input
-                        class="massInput"
-                        type="number"
-                        id="mass${i + 1}"
-                        value="${savedMass[i] ?? 1000}">
-                `
-        ).join("")}
-
+        <div class="floorLabel">
+            質量<br>(ton)
         </div>
 
-    `;
+        ${Array.from(
+            { length: n },
+            (_, i) => `
+                <select
+                    class="massInput"
+                    id="mass${i + 1}">
+                    ${[400, 800, 1200, 1600, 2000]
+                .map(value => `
+                            <option
+                                value="${value}"
+                                ${Number(savedMass[i] ?? 1000) === value ? "selected" : ""}>
+                                ${value}
+                            </option>
+                        `).join("")}
+                </select>
+            `
+        ).join("")}
+
+    </div>
+
+`;
 
 
-        // ==========================
-        // 剛性
-        // ==========================
+// ==========================
+// 剛性
+// ==========================
 
         floorParameters.innerHTML += `
 
-        <div class="parameterRow">
+    <div class="parameterRow">
 
-            <div class="floorLabel">
-                剛性<br>(kN/mm)
-            </div>
-
-            ${Array.from(
-            { length: n },
-            (_, i) => `
-                    <input
-                        class="stiffnessInput"
-                        type="number"
-                        id="stiffness${i + 1}"
-                        value="${savedStiffness[i] ?? 40}">
-                `
-        ).join("")}
-
+        <div class="floorLabel">
+            剛性<br>(kN/mm)
         </div>
 
-    `;
+        ${Array.from(
+            { length: n },
+            (_, i) => `
+                <select
+                    class="stiffnessInput"
+                    id="stiffness${i + 1}">
+                    ${Array.from(
+                { length: 14 },
+                (_, j) => {
+                    const value = 150 * (j + 1);
+
+                    return `
+                                <option
+                                    value="${value}"
+                                    ${Number(savedStiffness[i] ?? 150) === value ? "selected" : ""}>
+                                    ${value}
+                                </option>
+                            `;
+                }
+            ).join("")}
+                </select>
+            `
+        ).join("")}
+
+    </div>
+
+`;
 
 
         // ==========================

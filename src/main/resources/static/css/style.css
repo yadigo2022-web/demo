@@ -295,9 +295,9 @@ canvas,
     cursor: not-allowed; /* マウスカーソルを禁止マークにする（推奨） */
 }
 
-#toc3 h2,
-#sec2 h2,
-#sec3 h2{
+#toc3 h3,
+#sec2 h3,
+#sec3 h3{
     width:100%;
     text-align:center;
     margin-top: 15px;
@@ -322,20 +322,6 @@ canvas,
     width:100%;
 }
 
-/*====================================
-  パラメータ入力全体
-====================================*/
-.inputGroup{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:15px;
-    width:100%;
-}
-
-/*====================================
-  階数・減衰定数
-====================================*/
 .paramBox{
     display:grid;
     grid-template-columns:80px 80px;
@@ -351,7 +337,9 @@ canvas,
     font-weight:bold;
 }
 
-.paramBox input{
+/* 階数・減衰定数 */
+.paramBox input,
+.paramBox select{
     width:80px;
     height:35px;
     box-sizing:border-box;
@@ -360,41 +348,6 @@ canvas,
     border:2px solid black;
 }
 
-.inputTooltip{
-    position:relative;
-    display:inline-block;
-}
-
-
-.tooltipText {
-    display: none;
-    position: absolute;
-
-    /* 入力欄の右側 */
-    left: calc(100% + 8px);
-    top: 50%;
-    transform: translateY(-50%);
-
-    width: 260px;
-    box-sizing: border-box;
-
-    background: #333;
-    color: white;
-    padding: 10px 12px;
-    border-radius: 5px;
-
-    font-size: 13px;
-    line-height: 1.5;
-    text-align: left;
-    white-space: normal;
-
-    z-index: 9999;
-}
-
-/* 入力欄にカーソルが入ったとき */
-.inputTooltip:focus-within .tooltipText{
-    display:block;
-}
 
 /*====================================
   階ごとの入力欄
@@ -411,14 +364,13 @@ canvas,
     column-gap:15px;
     row-gap:10px;
     width:max-content;
-    /*1Fの位置を階数・減衰定数の入力欄に合わせる*/
+
+    /* 1Fの位置を階数・減衰定数の入力欄に合わせる */
     margin-left:calc(50% - 85px);
+
     text-align:center;
 }
 
-/*====================================
-  階数表示・入力行
-====================================*/
 .parameterHeader,
 .parameterRow{
     display:contents;
@@ -430,7 +382,10 @@ canvas,
     font-weight:bold;
 }
 
-/* 質量・剛性の入力欄 */
+
+/*====================================
+  質量・剛性の選択欄
+====================================*/
 .massInput,
 .stiffnessInput{
     width:80px;
@@ -441,6 +396,7 @@ canvas,
     border:2px solid black;
 }
 
+
 /*====================================
   1F・2F・3F... の表示
 ====================================*/
@@ -448,6 +404,7 @@ canvas,
     text-align:center;
     font-weight:bold;
 }
+
 
 /*====================================
   階ごとの入力欄のスクロール
@@ -734,7 +691,7 @@ canvas,
        メインコンテナ
     ========================== */
     .main-container{
-        width:90%;
+        width:100%;
         max-width:100%;
         padding:0;
         margin:0;

@@ -103,19 +103,8 @@
 
                             <div class="inputTooltip">
 
-                                <input
-                                        type="number"
-                                        id="floor"
-                                        min="1"
-                                        step="1"
-                                        value="1">
+                                <select id="floor"></select>
 
-                                <span class="tooltipText">
-                                    入力が終わったら<br>
-                                    入力欄の外を押してください。<br>
-                                    スマホの場合は、キーボードを<br>
-                                    閉じた際に更新されたりします。
-                                </span>
 
                             </div>
 
@@ -130,12 +119,10 @@
 
                             <div class="inputTooltip">
 
-                                <input
-                                        type="number"
-                                        id="damping"
-                                        step="0.01"
-                                        min="0"
-                                        value="0.02">
+                                <select id="damping">
+                                    <option value="0.02">0.02</option>
+                                    <option value="0.05">0.05</option>
+                                </select>
 
 
 
