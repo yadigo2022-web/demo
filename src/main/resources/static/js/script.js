@@ -7,95 +7,61 @@ window.onload = async function(){
     const floorInput = document.getElementById("floor");
     const floorParameters = document.getElementById("floorParameters");
 
-    // ==========================
     // Canvas描画
-    // ==========================
-
     function draw(n,x) {
-
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
-
-        // ==========================
-        // 自動縮尺
-        // ==========================
-
-        const margin = 20;
+        const margin = 2;
         const floorHeight = 80;
         const radius = 15;
-
-
         const buildingHeight =
             Math.max((n + 0.2) * floorHeight, 1 * floorHeight);
-
-
         const scale =
             (canvas.height - margin * 2 - radius * 2)
             / buildingHeight;
-
-
         const h = floorHeight * scale;
 
-
-        // 地盤位置
-        const yGround = canvas.height - margin - 15*scale;
-
-
-
+        // 質点のY座標
         function getY(i){
             return canvas.height
                 - margin
                 - radius
-                - (i+1)*h;
+                - (i + 1) * h;
         }
 
+        // 地盤位置
+        const yGround = getY(0) + h;
 
-
-        // ==========================
         // 柱（階間）
-        // ==========================
-
-        for(let i=0;i<n;i++){
-
+        for(let i = 0; i < n - 1; i++){
             ctx.beginPath();
-
             ctx.moveTo(
-                x[i+1],   // 1階以上
+                x[i + 1],
                 getY(i)
             );
-
             ctx.lineTo(
-                x[i+2],
-                getY(i+1)
+                x[i + 2],
+                getY(i + 1)
             );
 
             ctx.stroke();
 
         }
 
-
-
-        // ==========================
         // 質点
-        // ==========================
-
-        for(let i=0;i<n;i++){
+        for(let i = 0; i < n; i++){
 
             ctx.beginPath();
 
             ctx.arc(
-                x[i+1],   // 1階質点はx[2]
+                x[i + 1],
                 getY(i),
-                15*scale,
+                radius * scale,
                 0,
-                Math.PI*2
+                Math.PI * 2
             );
-
             ctx.fill();
-
         }
-
-
 
         // ==========================
         // 地盤から1階質点まで
@@ -104,17 +70,16 @@ window.onload = async function(){
         ctx.beginPath();
 
         ctx.moveTo(
-            x[1],
-            getY(0)
-        );
-
-        ctx.lineTo(
             x[0],
             yGround
         );
 
-        ctx.stroke();
+        ctx.lineTo(
+            x[1],
+            getY(0)
+        );
 
+        ctx.stroke();
 
 
         // ==========================
@@ -124,12 +89,12 @@ window.onload = async function(){
         ctx.beginPath();
 
         ctx.moveTo(
-            x[0]-40,
+            x[0] - 15 * scale,
             yGround
         );
 
         ctx.lineTo(
-            x[0]+40,
+            x[0] + 15 * scale,
             yGround
         );
 
@@ -389,19 +354,63 @@ window.onload = async function(){
 
 
     // ==========================
-    // 階数に応じて入力欄を作成
-    // ==========================
+// 現在の質量・剛性を保存
+// ==========================
+
+    let savedMass = [];
+    let savedStiffness = [];
+
+
+// ==========================
+// 階数に応じて入力欄を作成
+// ==========================
 
     function createFloorInputs() {
 
+        // ==========================
+        // 現在の入力値を保存
+        // ==========================
+
+        document.querySelectorAll(".massInput").forEach((input, i) => {
+            savedMass[i] = input.value;
+        });
+
+        document.querySelectorAll(".stiffnessInput").forEach((input, i) => {
+            savedStiffness[i] = input.value;
+        });
+
+
+        // ==========================
+        // 階数が空欄なら何もしない
+        // ==========================
+
+        if (floorInput.value === "") {
+            return;
+        }
+
+
         const n = Number(floorInput.value);
+
+
+        if (n <= 0) {
+            return;
+        }
+
+
+        // ==========================
+        // 入力欄を作り直す
+        // ==========================
 
         floorParameters.innerHTML = "";
 
-        if (n <= 0) return;
 
         // CSSに階数を渡す
-        floorParameters.style.setProperty("--floor", n);
+
+        floorParameters.style.setProperty(
+            "--floor",
+            n
+        );
+
 
         // ==========================
         // 階数表示
@@ -409,18 +418,19 @@ window.onload = async function(){
 
         floorParameters.innerHTML += `
 
-    <div class="parameterHeader">
+        <div class="parameterHeader">
 
-        <div></div>
+            <div></div>
 
-        ${Array.from(
+            ${Array.from(
             { length: n },
             (_, i) => `<div>${i + 1}F</div>`
         ).join("")}
 
-    </div>
+        </div>
 
     `;
+
 
         // ==========================
         // 質量
@@ -430,24 +440,25 @@ window.onload = async function(){
 
         <div class="parameterRow">
 
-        <div class="floorLabel">
-            質量<br>(ton)
-        </div>
+            <div class="floorLabel">
+                質量<br>(ton)
+            </div>
 
-        ${Array.from(
+            ${Array.from(
             { length: n },
             (_, i) => `
-                <input
-                    class="massInput"
-                    type="number"
-                    id="mass${i + 1}"
-                    value="1000">
-            `
+                    <input
+                        class="massInput"
+                        type="number"
+                        id="mass${i + 1}"
+                        value="${savedMass[i] ?? 1000}">
+                `
         ).join("")}
 
-    </div>
+        </div>
 
     `;
+
 
         // ==========================
         // 剛性
@@ -455,49 +466,68 @@ window.onload = async function(){
 
         floorParameters.innerHTML += `
 
-    <div class="parameterRow">
+        <div class="parameterRow">
 
-        <div class="floorLabel">
-            剛性<br>(kN/mm)
-        </div>
+            <div class="floorLabel">
+                剛性<br>(kN/mm)
+            </div>
 
-        ${Array.from(
+            ${Array.from(
             { length: n },
             (_, i) => `
-                <input
-                    class="stiffnessInput"
-                    type="number"
-                    id="stiffness${i + 1}"
-                    value="40">
-            `
+                    <input
+                        class="stiffnessInput"
+                        type="number"
+                        id="stiffness${i + 1}"
+                        value="${savedStiffness[i] ?? 40}">
+                `
         ).join("")}
 
-    </div>
+        </div>
 
     `;
+
 
         // ==========================
         // Canvas更新
         // ==========================
 
-        const storys = n;
+        const x = new Array(n + 1)
+            .fill(canvas.width / 2);
 
-        const x = new Array(storys + 1).fill(canvas.width / 2);
+        draw(n, x);
 
-        draw(storys, x);
     }
 
-    // 階数変更時
-    floorInput.addEventListener("input", createFloorInputs);
+
+// ==========================
+// 階数からカーソルが外れたら
+// 入力欄とCanvasをまとめて更新
+// ==========================
+
+    floorInput.addEventListener(
+        "blur",
+        createFloorInputs
+    );
 
 
+// ==========================
+// 初期表示
+// ==========================
 
     floorInput.value = 1;
 
     createFloorInputs();
 
 
+// ==========================
+// 解析結果
+// ==========================
+
     let totalDispData = [];
+
+
+
 
     // ==========================
     // 解析

@@ -7,7 +7,7 @@ body{
 
 .main-container{
     width:100%;
-    max-width:1000px;
+    max-width:1200px;
     margin:0 auto;
     display:grid;
     position:relative;
@@ -18,7 +18,7 @@ body{
 }
 
 #header{
-    height:60px;
+    height:100%;
     width:100%;
     box-sizing:border-box;
     background:white;
@@ -279,17 +279,18 @@ canvas,
 
 .pageButton{
     grid-area:button;
-    width:100%;
+    width:70%;
     display:flex;
     justify-content:center;
     gap:10px;
     padding-top:20px;
+    margin:0 auto;
 }
 
 #page1,
 #page2,
 #page3{
-    width:120px;
+    width:100%;
     height:50px;
     background:white;
     border:2px solid black;
@@ -359,7 +360,49 @@ canvas,
     height:35px;
     box-sizing:border-box;
     font-size:14px;
+    font-weight:bold;
     text-align:center;
+}
+
+.inputTooltip{
+    position:relative;
+    display:inline-block;
+}
+
+
+.tooltipText{
+
+    display:none;
+
+    position:absolute;
+
+    left:50%;
+    bottom:calc(100% + 8px);
+
+    transform:translateX(-50%);
+
+    background:#333;
+    color:white;
+
+    padding:6px 10px;
+
+    border-radius:5px;
+
+    font-size:13px;
+
+    white-space:nowrap;
+
+    z-index:1000;
+
+}
+
+
+/* 入力欄にカーソルが入ったとき */
+
+.inputTooltip:focus-within .tooltipText{
+
+    display:block;
+
 }
 
 /*====================================
@@ -406,6 +449,7 @@ canvas,
     height:35px;
     box-sizing:border-box;
     text-align:center;
+    font-weight:bold;
 }
 
 /*====================================
@@ -441,13 +485,26 @@ canvas,
     cursor:pointer;
 }
 
+#unlock {
+    width:30px;
+    height:45px;
+    background:white;
+    border:2px solid black;
+    border-radius:5px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0;
+}
+
 
 /*====================================
   スマホ表示
 ====================================*/
-
 @media (max-width:768px){
-
     .inputGroup{
 
         width:100%;
@@ -664,6 +721,7 @@ canvas,
     font-size:28px;
 }
 
+#errorOk,
 #okButton{
     width:120px;
     height:45px;
@@ -689,101 +747,232 @@ canvas,
     background:rgba(0,0,0,0.5);
     z-index:5000;
 }
+#progress,
+#dipscale {
+    accent-color: #333;
+}
 
 /* ==========================
    スマホ表示
 ========================== */
+
 @media (max-width:768px){
+
+    /* ==========================
+       全体
+    ========================== */
+
     html,
     body{
+
         width:100%;
+
         margin:0;
+
         padding:0;
+
         overflow-x:hidden;
+
         box-sizing:border-box;
+
     }
+
 
     *,
     *::before,
     *::after{
+
         box-sizing:border-box;
+
     }
+
 
     /* ==========================
        ヘッダー
     ========================== */
+
     #header{
+
         width:100%;
+
         height:60px;
+
         margin:0;
+
         padding:0 20px;
+
     }
+
 
     /* ==========================
        メニュー
     ========================== */
+
     #menu{
+
         position:absolute;
+
         left:0;
+
         width:100%;
+
         box-sizing:border-box;
+
     }
+
 
     /* ==========================
        メインコンテナ
     ========================== */
+
     .main-container{
+
         width:100%;
+
         max-width:100%;
+
         padding:0;
+
         margin:0;
+
         border:none;
+
         display:block;
+
     }
+
 
     /* ==========================
        メイン
     ========================== */
+
     #content{
+
         width:100%;
+
         max-width:100%;
+
         margin:0;
+
         padding:10px;
+
         display:block;
+
     }
+
 
     /* ==========================
        Canvas
     ========================== */
+
     canvas{
+
         display:block;
+
         width:100%;
+
         max-width:100%;
+
         height:auto;
+
         margin:0 auto;
+
     }
 
+
     /* ==========================
-       パラメータ
+       パラメータ全体
     ========================== */
-    .paramBox{
+
+    .inputGroup{
+
         width:100%;
+
         max-width:100%;
+
+        align-items:center;
+
     }
+
+
+    /* ==========================
+       階数・減衰定数
+    ========================== */
+
+    .paramBox{
+
+        display:grid;
+
+        grid-template-columns:80px 80px;
+
+        column-gap:15px;
+
+        align-items:center;
+
+        justify-content:center;
+
+        width:100%;
+
+        max-width:100%;
+
+    }
+
+
+    /* ==========================
+       階ごとの入力欄
+    ========================== */
+
+    #floorParameterSection{
+
+        width:100%;
+
+        max-width:100%;
+
+        overflow-x:auto;
+
+        overflow-y:hidden;
+
+    }
+
+
+    #floorParameters{
+
+        /*
+         * 1Fの位置を
+         * 階数・減衰定数の入力欄に合わせる
+         */
+
+        margin-left:calc(50% - 85px);
+
+    }
+
+
+    /* ==========================
+       入力欄・セレクト
+    ========================== */
 
     input,
     select{
+
         max-width:100%;
+
         box-sizing:border-box;
+
     }
+
 
     /* ==========================
        ページ切替ボタン
     ========================== */
+
     .pageButton{
+
         width:100%;
+
         max-width:100%;
+
         justify-content:center;
+
     }
 
 }
