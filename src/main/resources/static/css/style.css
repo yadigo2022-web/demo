@@ -987,26 +987,66 @@ button:disabled {
         width:100%;
         max-width:100%;
     }
-    /* 階数・減衰定数 */
+
     #floorInput,
     #dampingInput{
-        width:80px;
-        height:35px;
-        box-sizing:border-box;
-        text-align:center;
-        font-weight:bold;
-        border:2px solid black;
+        width:80px !important;
+        height:35px !important;
+        box-sizing:border-box !important;
+        padding:0 !important;
+
+        text-align:center !important;
+        font-weight:bold !important;
+
+        border:2px solid black !important;
     }
 
-    /* 質量・剛性 */
+
+    /* --------------------------------
+       質量・剛性
+    -------------------------------- */
+
     .massInput,
     .stiffnessInput{
-        width:80px;
-        height:35px;
+        width:80px !important;
+        height:35px !important;
+        box-sizing:border-box !important;
+        padding:0 !important;
+
+        text-align:center !important;
+        font-weight:bold !important;
+
+        border:2px solid black !important;
+    }
+
+
+    /* --------------------------------
+       入力欄・セレクト
+    -------------------------------- */
+
+    input,
+    select{
         box-sizing:border-box;
-        text-align:center;
-        font-weight:bold;
-        border:2px solid black;
+        max-width:100%;
+    }
+
+
+    /* --------------------------------
+       地震波選択
+    -------------------------------- */
+
+    #inputSeismicWave{
+        width:220px !important;
+        height:45px !important;
+        box-sizing:border-box !important;
+
+        padding:0 15px !important;
+
+        font-size:18px !important;
+        font-weight:bold !important;
+
+        text-align:center !important;
+        text-align-last:center !important;
     }
 
 
@@ -1034,9 +1074,6 @@ button:disabled {
     select{
         max-width:100%;
         box-sizing:border-box;
-    }
-    #inputSeismicWave{
-        text-align:center;
     }
 
 
