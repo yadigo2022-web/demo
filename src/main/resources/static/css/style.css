@@ -1,6 +1,6 @@
-    /* ====================================
-       全体
-    ==================================== */
+/* ====================================
+   全体
+==================================== */
 
 body{
     font-family:"Noto Sans JP", sans-serif;
@@ -556,6 +556,7 @@ button:disabled {
     border-radius: 5px;
     font-size: 20px;
     font-weight: bold;
+    color: black;
     cursor: pointer;
 }
 
@@ -986,6 +987,27 @@ button:disabled {
         width:100%;
         max-width:100%;
     }
+    /* 階数・減衰定数 */
+    #floorInput,
+    #dampingInput{
+        width:80px;
+        height:35px;
+        box-sizing:border-box;
+        text-align:center;
+        font-weight:bold;
+        border:2px solid black;
+    }
+
+    /* 質量・剛性 */
+    .massInput,
+    .stiffnessInput{
+        width:80px;
+        height:35px;
+        box-sizing:border-box;
+        text-align:center;
+        font-weight:bold;
+        border:2px solid black;
+    }
 
 
     /* --------------------------------
@@ -1012,6 +1034,9 @@ button:disabled {
     select{
         max-width:100%;
         box-sizing:border-box;
+    }
+    #inputSeismicWave{
+        text-align:center;
     }
 
 
