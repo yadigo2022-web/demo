@@ -1,7 +1,7 @@
 # 地震応答解析Webアプリ
 
 ## Webページ
-https://github.com/yadigo2022-web/demo
+https://demo-efe2.onrender.com/
 
 ## 概要
 地震時における建物の挙動を、**Webブラウザ上で視覚的に確認できる地震応答解析アプリケーション**です。
