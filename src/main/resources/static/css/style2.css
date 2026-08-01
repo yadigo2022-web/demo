@@ -99,43 +99,136 @@
    スマホ表示
 ========================== */
 
-@media (max-width: 1000px){
+@media (max-width:1000px){
 
-    /* ページ全体の横スクロールを禁止 */
+    /* --------------------------------
+       ページ全体
+    -------------------------------- */
+
     html,
-    body {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
+    body{
+        width:100%;
+        max-width:100%;
+        margin:0;
+        padding:0;
+
+        overflow-x:hidden;
+
+        box-sizing:border-box;
     }
 
-    /* 目次を非表示 */
+    *,
+    *::before,
+    *::after{
+        box-sizing:border-box;
+    }
+
+
+    /* --------------------------------
+       目次
+    -------------------------------- */
+
     #toc{
-        display: none;
+        display:none;
     }
 
-    /* 本文を画面いっぱいに */
+
+    /* --------------------------------
+       本文
+    -------------------------------- */
+
     #content{
-        margin: 0;
-        width: 100%;
-        max-width: 100%;
-        padding: 15px;
-        box-sizing: border-box;
-        overflow-x: hidden;
+        width:100%;
+        max-width:100%;
+
+        margin:0;
+        padding:15px;
+
+        box-sizing:border-box;
+
+        overflow-x:hidden;
     }
 
-    /* 数式や画像がはみ出さないように */
+
+    /* --------------------------------
+       見出し・文章
+    -------------------------------- */
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    li{
+        max-width:100%;
+        overflow-wrap:break-word;
+        word-wrap:break-word;
+    }
+
+
+    /* --------------------------------
+       画像
+    -------------------------------- */
+
     img{
-        max-width: 100%;
-        height: auto;
+        display:block;
+
+        max-width:100%;
+        height:auto;
     }
 
-    /* 長い数式の部分だけ横スクロール */
-    .longFormula{
-        width: 100%;
-        max-width: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
-        box-sizing: border-box;
+
+    /* --------------------------------
+       表
+    -------------------------------- */
+
+    table{
+        max-width:100%;
     }
+
+
+    /* --------------------------------
+       長い数式
+    -------------------------------- */
+
+    .longFormula{
+        width:100%;
+        max-width:100%;
+
+        overflow-x:auto;
+        overflow-y:hidden;
+
+        box-sizing:border-box;
+
+        -webkit-overflow-scrolling:touch;
+    }
+
+
+    /* --------------------------------
+       MathJax
+    -------------------------------- */
+
+    mjx-container{
+        max-width:100%;
+    }
+
+
+    /* --------------------------------
+       コード
+    -------------------------------- */
+
+    pre{
+        max-width:100%;
+
+        overflow-x:auto;
+        overflow-y:hidden;
+
+        box-sizing:border-box;
+    }
+
+    code{
+        overflow-wrap:break-word;
+        word-break:break-word;
+    }
+
 }

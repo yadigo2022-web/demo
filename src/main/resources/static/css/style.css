@@ -876,190 +876,190 @@ button:disabled {
    スマホ表示
 ==================================== */
 
-@media (max-width:768px){
+    @media (max-width:768px){
 
-    html,
-    body{
-        width:100%;
-        margin:0;
-        padding:0;
-        overflow-x:hidden;
-        box-sizing:border-box;
-    }
+        html,
+        body{
+            width:100%;
+            margin:0;
+            padding:0;
+            overflow-x:hidden;
+            box-sizing:border-box;
+        }
 
-    *,
-    *::before,
-    *::after{
-        box-sizing:border-box;
-    }
-
-
-    /* --------------------------------
-       ヘッダー
-    -------------------------------- */
-
-    #header{
-        width:100%;
-        height:60px;
-        margin:0;
-        padding:0 20px;
-    }
+        *,
+        *::before,
+        *::after{
+            box-sizing:border-box;
+        }
 
 
-    /* --------------------------------
-       メニュー
-    -------------------------------- */
+        /* --------------------------------
+           ヘッダー
+        -------------------------------- */
 
-    #menu{
-        position:absolute;
-        left:0;
-        width:100%;
-        box-sizing:border-box;
-    }
-
-
-    /* --------------------------------
-       メインコンテナ
-    -------------------------------- */
-
-    .main-container{
-        width:100%;
-        max-width:100%;
-        padding:0;
-        margin:0;
-        border:none;
-        display:block;
-    }
+        #header{
+            width:100%;
+            height:60px;
+            margin:0;
+            padding:0 20px;
+        }
 
 
-    /* --------------------------------
-       メインコンテンツ
-    -------------------------------- */
+        /* --------------------------------
+           メニュー
+        -------------------------------- */
 
-    #content{
-        width:100%;
-        max-width:100%;
-        margin:0;
-        padding:10px;
-        display:block;
-    }
-
-
-    /* --------------------------------
-       キャンバス
-    -------------------------------- */
-
-    #canvasArea{
-        width:100%;
-    }
-
-    canvas{
-        display:block;
-        width:70%;
-        max-width:100%;
-        height:auto;
-        margin:0 auto;
-    }
+        #menu{
+            position:absolute;
+            left:0;
+            width:100%;
+            box-sizing:border-box;
+        }
 
 
-    /* --------------------------------
-       パラメーター
-    -------------------------------- */
+        /* --------------------------------
+           メインコンテナ
+        -------------------------------- */
 
-    #parameterSection{
-        width:100%;
-        max-width:100%;
-    }
-
-    .inputGroup{
-        width:100%;
-        max-width:100%;
-        align-items:center;
-    }
+        .main-container{
+            width:100%;
+            max-width:100%;
+            padding:0;
+            margin:0;
+            border:none;
+            display:block;
+        }
 
 
-    /* --------------------------------
+        /* --------------------------------
+           メインコンテンツ
+        -------------------------------- */
+
+        #content{
+            width:100%;
+            max-width:100%;
+            margin:0;
+            padding:10px;
+            display:block;
+        }
+
+
+        /* --------------------------------
+           キャンバス
+        -------------------------------- */
+
+        #canvasArea{
+            width:100%;
+        }
+
+        canvas{
+            display:block;
+            width:70%;
+            max-width:100%;
+            height:auto;
+            margin:0 auto;
+        }
+
+
+        /* --------------------------------
+           パラメーター
+        -------------------------------- */
+
+        #parameterSection{
+            width:100%;
+            max-width:100%;
+        }
+
+        .inputGroup{
+            width:100%;
+            max-width:100%;
+            align-items:center;
+        }
+
+
+        /* --------------------------------
+           階数・減衰定数
+        -------------------------------- */
+
+        #basicParameter{
+            width:100%;
+        }
+
+        .paramBox{
+            display:grid;
+            grid-template-columns:80px 80px;
+            column-gap:15px;
+            align-items:center;
+            justify-content:center;
+
+            width:100%;
+            max-width:100%;
+        }
+
+        .paramBox label{
+            text-align:center;
+        }
+
+        /* --------------------------------
        階数・減衰定数
     -------------------------------- */
 
-    #basicParameter{
-        width:100%;
-    }
+        #floor,
+        #damping{
+            width:80px !important;
+            height:35px !important;
 
-    .paramBox{
-        display:grid;
-        grid-template-columns:80px 80px;
-        column-gap:15px;
-        align-items:center;
-        justify-content:center;
+            box-sizing:border-box !important;
+            padding:0 !important;
 
-        width:100%;
-        max-width:100%;
-    }
+            text-align:center !important;
+            text-align-last:center !important;
 
-    .paramBox label{
-        text-align:center;
-    }
+            font-weight:bold !important;
 
-    /* --------------------------------
-   階数・減衰定数
--------------------------------- */
+            border:2px solid black !important;
+            border-radius:8px !important;
 
-    #floor,
-    #damping{
-        width:80px !important;
-        height:35px !important;
+            background:white !important;
+            color:black !important;
 
-        box-sizing:border-box !important;
-        padding:0 !important;
-
-        text-align:center !important;
-        text-align-last:center !important;
-
-        font-weight:bold !important;
-
-        border:2px solid black !important;
-        border-radius:8px !important;
-
-        background:white !important;
-        color:black !important;
-
-        appearance:none !important;
-        -webkit-appearance:none !important;
-    }
+            appearance:none !important;
+            -webkit-appearance:none !important;
+        }
 
 
-    /* --------------------------------
-       質量・剛性
-    -------------------------------- */
+        /* --------------------------------
+           質量・剛性
+        -------------------------------- */
 
-    .massInput,
-    .stiffnessInput{
-        width:80px !important;
-        height:35px !important;
+        .massInput,
+        .stiffnessInput{
+            width:80px !important;
+            height:35px !important;
 
-        box-sizing:border-box !important;
-        padding:0 !important;
+            box-sizing:border-box !important;
+            padding:0 !important;
 
-        text-align:center !important;
-        text-align-last:center !important;
+            text-align:center !important;
+            text-align-last:center !important;
 
-        font-weight:bold !important;
+            font-weight:bold !important;
 
-        border:2px solid black !important;
-        border-radius:8px !important;
+            border:2px solid black !important;
+            border-radius:8px !important;
 
-        background:white !important;
-        color:black !important;
+            background:white !important;
+            color:black !important;
 
-        appearance:none !important;
-        -webkit-appearance:none !important;
-    }
+            appearance:none !important;
+            -webkit-appearance:none !important;
+        }
 
 
-    /* --------------------------------
-       階ごとの入力欄
-    -------------------------------- */
+        /* --------------------------------
+           階ごとの入力欄
+        -------------------------------- */
 
     #floorParameterSection{
         width:100%;
