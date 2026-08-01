@@ -978,27 +978,44 @@ button:disabled {
        階数・減衰定数
     -------------------------------- */
 
+    #basicParameter{
+        width:100%;
+    }
+
     .paramBox{
         display:grid;
         grid-template-columns:80px 80px;
         column-gap:15px;
         align-items:center;
         justify-content:center;
+
         width:100%;
         max-width:100%;
     }
 
-    #floorInput,
-    #dampingInput{
+    .paramBox label{
+        text-align:center;
+    }
+
+    /* 階数 */
+    #floor,
+
+        /* 減衰定数 */
+    #damping{
         width:80px !important;
         height:35px !important;
+
         box-sizing:border-box !important;
         padding:0 !important;
 
         text-align:center !important;
+        text-align-last:center !important;
+
         font-weight:bold !important;
 
         border:2px solid black !important;
+
+        background:white;
     }
 
 
@@ -1010,6 +1027,7 @@ button:disabled {
     .stiffnessInput{
         width:80px !important;
         height:35px !important;
+
         box-sizing:border-box !important;
         padding:0 !important;
 
@@ -1017,36 +1035,8 @@ button:disabled {
         font-weight:bold !important;
 
         border:2px solid black !important;
-    }
 
-
-    /* --------------------------------
-       入力欄・セレクト
-    -------------------------------- */
-
-    input,
-    select{
-        box-sizing:border-box;
-        max-width:100%;
-    }
-
-
-    /* --------------------------------
-       地震波選択
-    -------------------------------- */
-
-    #inputSeismicWave{
-        width:220px !important;
-        height:45px !important;
-        box-sizing:border-box !important;
-
-        padding:0 15px !important;
-
-        font-size:18px !important;
-        font-weight:bold !important;
-
-        text-align:center !important;
-        text-align-last:center !important;
+        background:white;
     }
 
 
@@ -1072,8 +1062,28 @@ button:disabled {
 
     input,
     select{
-        max-width:100%;
         box-sizing:border-box;
+        max-width:100%;
+    }
+
+
+    /* --------------------------------
+       地震波選択
+    -------------------------------- */
+
+    #inputSeismicWave{
+        width:220px !important;
+        height:45px !important;
+
+        box-sizing:border-box !important;
+
+        padding:0 15px !important;
+
+        font-size:18px !important;
+        font-weight:bold !important;
+
+        text-align:center !important;
+        text-align-last:center !important;
     }
 
 
