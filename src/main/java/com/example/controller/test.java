@@ -54,12 +54,12 @@ public class test {
             y_vel = y_vel_next;
             y_dis = y_dis_next;
 
-            // 時刻（dataの1列目）
+            // 時刻
             time.add(data.get(i).get(0));
         }
 
 
-        // 結果を返す
+        // 結果
         List<Double> groundAccList = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {

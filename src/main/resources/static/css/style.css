@@ -407,16 +407,6 @@ canvas{
     text-align:center;
 }
 
-#inputSeismicWave:hover{
-    background:#f0f0f0;
-}
-
-#inputSeismicWave:focus{
-    outline:none;
-    background:#eeeeee;
-}
-
-
 /* ====================================
    解析・再生ボタン
 ==================================== */

@@ -15,22 +15,6 @@
 }
 
 /* ----------------------------
-   右サイドバー
----------------------------- */
-#toc2{
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 220px;
-    height: 100vh;
-    background: #ffffff;
-    border-left: 1px solid #ccc;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-}
-
-/* ----------------------------
    タイトル
 ---------------------------- */
 #toc h2,

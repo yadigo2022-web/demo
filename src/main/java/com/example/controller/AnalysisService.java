@@ -25,14 +25,12 @@ public class AnalysisService {
         System.out.println("===== 入力値 =====");
         System.out.println();
 
-        // 減衰比
         System.out.println("減衰比");
         System.out.println(damping);
 
-
+        System.out.println("時間刻み");
         System.out.println(dt);
 
-        // 質量
         System.out.println("質量");
 
         for (int i = 0; i < mass.size(); i++) {

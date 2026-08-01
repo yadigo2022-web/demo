@@ -588,10 +588,7 @@ window.onload = async function () {
             data[1][0] - data[0][0];
 
 
-        console.log(
-            "地震波読み込み:",
-            earthquake
-        );
+
 
     }
 
@@ -1238,7 +1235,7 @@ startButton.addEventListener(
                 false;
 
             unlockButton.textContent =
-                "🔒︎";
+                "🔒";
 
 
             // 結果ボタンを有効化
@@ -1319,7 +1316,7 @@ unlockButton.addEventListener(
             true;
 
         unlockButton.textContent =
-            "🔓︎";
+            "🔓";
 
 
         // 結果をリセット
