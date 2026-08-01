@@ -1,9 +1,13 @@
+    /* ====================================
+       全体
+    ==================================== */
+
 body{
-    font-family: "Noto Sans JP", sans-serif;
+    font-family:"Noto Sans JP", sans-serif;
     margin:0;
     display:flex;
     justify-content:center;
-    background: white;
+    background:white;
 }
 
 .main-container{
@@ -17,6 +21,11 @@ body{
         "header"
         "content";
 }
+
+
+/* ====================================
+   ヘッダー
+==================================== */
 
 #header{
     height:100%;
@@ -38,7 +47,7 @@ body{
     width:50px;
     height:50px;
     font-size:30px;
-    color: black;
+    color:black;
     border:none;
     background:none;
     cursor:pointer;
@@ -46,47 +55,10 @@ body{
 }
 
 
-/*====================================
-  キャンバス
-====================================*/
-canvas{
-    width:90%;
-    height:auto;
-    aspect-ratio:1 / 1;
-    margin:auto;
-    border:1px solid black;
-    position:relative;
-    z-index:auto;
-}
+/* ====================================
+   メニュー
+==================================== */
 
-#canvasArea{
-    grid-area:canvas;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position:relative;
-    z-index:6000;
-}
-
-#bottomArea{
-    grid-area:bottom1;
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-#pageContainer{
-    width:100%;
-    max-width:100%;
-    min-width:0;
-    overflow:hidden;
-}
-
-/*====================================
-  ヘッダーとメニュー
-====================================*/
 #menu{
     position:absolute;
     top:60px;
@@ -108,16 +80,21 @@ canvas{
     padding:20px;
 }
 
-#manual,
-#help,
-#about{
-    cursor: pointer;
-    display: inline-block;
-    width: fit-content;
+#manualButton,
+#helpButton,
+#aboutButton{
+    cursor:pointer;
+    display:inline-block;
+    width:fit-content;
 }
 
-#helpModal,
+
+/* ====================================
+   使い方・解説・サイト情報モーダル
+==================================== */
+
 #manualModal,
+#helpModal,
 #aboutModal{
     display:none;
     position:fixed;
@@ -129,29 +106,29 @@ canvas{
     z-index:9999;
 }
 
-.helpBox{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width: 90%;
-    height:90%;
-    background:white;
-    padding:10px;
-    border-radius:10px;
-}
-
 .manualBox,
 .aboutBox{
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    width: 80%;
-    max-width: 600px;
+    width:80%;
+    max-width:600px;
     min-height:300px;
     background:white;
     padding:30px;
+    border-radius:10px;
+}
+
+.helpBox{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    height:90%;
+    background:white;
+    padding:10px;
     border-radius:10px;
 }
 
@@ -171,100 +148,52 @@ canvas{
     border:none;
 }
 
+
+/* ====================================
+   メインコンテンツ
+==================================== */
+
 #content{
     grid-area:content;
     display:grid;
     grid-template-columns:
         1fr 1fr;
     grid-template-rows:
-        80px 1fr;  /* 右側の上下 */
+        80px 1fr;
     grid-template-areas:
         "canvas button"
         "canvas bottom1";
     background:white;
 }
 
-#bottomArea{
-    grid-area:bottom1;
-    width:100%;
-    min-width:0;
-    overflow:hidden;
+
+/* ====================================
+   キャンバス
+==================================== */
+
+#canvasArea{
+    grid-area:canvas;
     display:flex;
     justify-content:center;
     align-items:center;
-}
-
-#pageContainer{
-    width:100%;
-    height:100%;
-}
-
-.inputGroup{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:20px;
-}
-
-/* ==============================
-   入力欄 横並び
-============================== */
-#toc3,
-#sec2{
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-
-#sec3{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-
-#sec2,
-#sec3{
-    display:none;
-}
-
-#resultSection{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-
-#disableArea{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.4);
-    z-index:5000;
-}
-
-canvas,
-#resultSection{
     position:relative;
     z-index:6000;
 }
 
-#sec2.show,
-#sec3.show{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100%;
+canvas{
+    width:90%;
+    height:auto;
+    aspect-ratio:1 / 1;
+    margin:auto;
+    border:1px solid black;
+    position:relative;
+    z-index:auto;
 }
 
-.disabled{
-    opacity:0.3;
-    pointer-events:none;
-}
+
+/* ====================================
+   ページ切替ボタン
+==================================== */
 
 .pageButton{
     grid-area:button;
@@ -276,44 +205,80 @@ canvas,
     margin:0 auto;
 }
 
-#page1,
-#page2,
-#page3{
+#parameterPageButton,
+#analysisPageButton,
+#resultPageButton{
     width:100%;
     height:50px;
     background:white;
     border:2px solid black;
     font-size:20px;
     font-weight:bold;
-    color: black;
+    color:black;
     cursor:pointer;
 }
-/* 追加：無効化されたボタンの文字色と不透明度を固定する */
-#page3:disabled {
-    color: #c8c8c8;
-    opacity: 1; /* Safariや一部ブラウザの透過を防止 */
-    cursor: not-allowed; /* マウスカーソルを禁止マークにする（推奨） */
+
+#resultPageButton:disabled{
+    color:#c8c8c8;
+    opacity:1;
+    cursor:not-allowed;
 }
 
-#toc3 h3,
-#sec2 h3,
-#sec3 h3{
-    width:100%;
-    text-align:center;
-    margin-top: 15px;
-}
-
-
-#page1.active,
-#page2.active,
-#page3.active{
+#parameterPageButton.active,
+#analysisPageButton.active,
+#resultPageButton.active{
     background:#555;
     color:white;
 }
 
-/*====================================
-  階数・減衰定数
-====================================*/
+
+/* ====================================
+   下部エリア
+==================================== */
+
+#bottomArea{
+    grid-area:bottom1;
+    width:100%;
+    height:100%;
+    min-width:0;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#pageContainer{
+    width:100%;
+    height:100%;
+    max-width:100%;
+    min-width:0;
+    overflow:hidden;
+}
+
+
+/* ====================================
+   パラメーター入力
+==================================== */
+
+#parameterSection{
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#parameterSection h3,
+#analysisSection h3,
+#resultArea h3{
+    width:100%;
+    text-align:center;
+    margin-top:15px;
+}
+
+
+/* ====================================
+   階数・減衰定数
+==================================== */
+
 #basicParameter{
     display:flex;
     flex-direction:column;
@@ -337,7 +302,6 @@ canvas,
     font-weight:bold;
 }
 
-/* 階数・減衰定数 */
 .paramBox input,
 .paramBox select{
     width:80px;
@@ -349,12 +313,15 @@ canvas,
 }
 
 
-/*====================================
-  階ごとの入力欄
-====================================*/
+/* ====================================
+   階ごとの入力欄
+==================================== */
+
 #floorParameterSection{
     width:100%;
+    max-width:100%;
     overflow-x:auto;
+    overflow-y:hidden;
 }
 
 #floorParameters{
@@ -376,6 +343,11 @@ canvas,
     display:contents;
 }
 
+.parameterHeader{
+    text-align:center;
+    font-weight:bold;
+}
+
 .floorLabel{
     width:80px;
     text-align:center;
@@ -383,9 +355,10 @@ canvas,
 }
 
 
-/*====================================
-  質量・剛性の選択欄
-====================================*/
+/* ====================================
+   質量・剛性の入力欄
+==================================== */
+
 .massInput,
 .stiffnessInput{
     width:80px;
@@ -397,30 +370,55 @@ canvas,
 }
 
 
-/*====================================
-  1F・2F・3F... の表示
-====================================*/
-.parameterHeader{
-    text-align:center;
+/* ====================================
+   解析
+==================================== */
+
+#analysisSection{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    height:100%;
+}
+
+#analysisSection.show{
+    display:flex;
+}
+
+/* ====================================
+   地震波選択
+==================================== */
+
+#inputSeismicWave{
+    width:220px;
+    height:45px;
+    padding:0 15px;
+    font-size:18px;
     font-weight:bold;
+    color:black;
+    background:white;
+    border:2px solid black;
+    border-radius:5px;
+    cursor:pointer;
+    text-align:center;
+}
+
+#inputSeismicWave:hover{
+    background:#f0f0f0;
+}
+
+#inputSeismicWave:focus{
+    outline:none;
+    background:#eeeeee;
 }
 
 
-/*====================================
-  階ごとの入力欄のスクロール
-====================================*/
-#floorParameterSection{
-    width:100%;
-    max-width:100%;
-    overflow-x:auto;
-    overflow-y:hidden;
-}
+/* ====================================
+   解析・再生ボタン
+==================================== */
 
-/*====================================
-  解析・再生ボタン
-====================================*/
-#start,
-#look{
+#startButton,
+#playButton{
     width:120px;
     height:45px;
     background:white;
@@ -431,7 +429,7 @@ canvas,
     cursor:pointer;
 }
 
-#unlock {
+#unlockButton{
     width:30px;
     height:45px;
     background:white;
@@ -446,37 +444,220 @@ canvas,
     padding:0;
 }
 
-/* ==========================
-   地震波選択
-========================== */
-#inputSeismicWave{
-    width:220px;
-    height:45px;
-    padding:0 15px;
-    font-size:18px;
-    font-weight:bold;
+
+/* ====================================
+   結果
+==================================== */
+
+#resultArea{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#resultArea.show{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100%;
+}
+
+#resultSection{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    z-index:6000;
+}
+
+#progressBar,
+#displacementScale{
+    accent-color:#333;
+}
+
+/* ====================================
+  ロックされた要素
+==================================== */
+
+.disabled {
+   opacity: 0.3;
+   pointer-events: none;
+}
+
+
+/* ====================================
+   無効化されたボタン
+   ブラウザ標準の薄い表示を統一
+==================================== */
+
+button:disabled {
+    opacity: 0.3;
+    color: #666;
+    background: #f0f0f0;
+    border-color: #999;
+    cursor: not-allowed;
+}
+
+
+/* ====================================
+   ページ切替ボタン
+==================================== */
+
+#parameterPageButton,
+#analysisPageButton,
+#resultPageButton {
+    width: 100%;
+    height: 50px;
+    background: white;
+    border: 2px solid black;
+    font-size: 20px;
+    font-weight: bold;
     color: black;
-    background:white;
-    border:2px solid black;
-    border-radius:5px;
-    cursor:pointer;
-    text-align:center;
+    cursor: pointer;
 }
 
-/* 選択時 */
-#inputSeismicWave:hover{
-    background:#f0f0f0;
+
+/* ページ切替ボタンが無効 */
+
+#parameterPageButton:disabled,
+#analysisPageButton:disabled,
+#resultPageButton:disabled {
+    opacity: 0.3;
+    color: #666;
+    background: #f0f0f0;
+    border-color: #999;
+    cursor: not-allowed;
 }
 
-/* フォーカス時 */
-#inputSeismicWave:focus{
-    outline:none;
-    background:#eeeeee;
+
+/* 選択中のページ */
+
+#parameterPageButton.active,
+#analysisPageButton.active,
+#resultPageButton.active {
+    background: #555;
+    color: white;
 }
 
-/* ==========================
+
+/* ====================================
+   解析・再生ボタン
+==================================== */
+
+#startButton,
+#playButton {
+    width: 120px;
+    height: 45px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* 解析・再生ボタンが無効 */
+
+#startButton:disabled,
+#playButton:disabled {
+    opacity: 0.3;
+    color: #666;
+    background: #f0f0f0;
+    border-color: #999;
+    cursor: not-allowed;
+}
+
+
+/* ====================================
+   鍵マークボタン
+==================================== */
+
+#unlockButton {
+    width: 30px;
+    height: 45px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+}
+
+
+/* 鍵マークボタンが無効 */
+
+#unlockButton:disabled {
+    opacity: 0.3;
+    color: #666;
+    background: #f0f0f0;
+    border-color: #999;
+    cursor: not-allowed;
+}
+
+
+/* ====================================
+   再生中にロックされる範囲
+==================================== */
+
+.playbackLocked {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+
+/* 再生ボタンは再生中でも操作可能 */
+
+#playButton {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/* 再生中のプログレスバー・倍率も操作可能 */
+
+#progressBar,
+#displacementScale {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/* ====================================
+   解析後にロックされる入力欄
+==================================== */
+
+.analysisLocked {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+
+/* ====================================
+   プログレスバー・倍率
+==================================== */
+
+#progressBar,
+#displacementScale {
+    accent-color: #333;
+}
+
+
+
+
+/* ====================================
    入力エラーダイアログ
-========================== */
+==================================== */
+
 #errorModal{
     display:none;
     position:fixed;
@@ -500,89 +681,23 @@ canvas,
     text-align:center;
 }
 
-/* 全画面を覆う */
-#loading{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.4);
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
-
-/* 真ん中のボックス */
-.loadingBox{
-    width:400px;
-    padding:35px;
-    background:#d8d8d8;
-    border-radius:10px;
-    text-align:center;
-    box-shadow:0 0 20px rgba(0,0,0,0.3);
-}
-
-/* バーの外枠 */
-.progress{
-    width:100%;
-    height:18px;
-    background:#555;
-    overflow:hidden;
-    border-radius:3px;
-}
-
-/* 背景 */
-#loading2{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.65);
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
-
-/* 真ん中 */
-.loadingBox{
+#errorOkButton{
+    width:120px;
+    height:45px;
+    font-size:18px;
+    border:2px solid black;
+    border-radius:6px;
     background:white;
-    text-align:center;
+    color:black;
+    cursor:pointer;
 }
 
-/* 回転する円 */
-.spinner{
-    width:80px;
-    height:80px;
-    border:10px solid #666;
-    border-top:10px solid #919191;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    margin:auto;
-}
 
-/* 文字 */
-.loadingBox p{
-    margin-top:25px;
-    color: #0b0b0b;
-    font-size:28px;
-    font-family:Arial, sans-serif;
-}
+/* ====================================
+   解析完了
+==================================== */
 
-@keyframes spin{
-    0%{
-        transform:rotate(0deg);
-    }
-    100%{
-        transform:rotate(360deg);
-    }
-}
-
-/* 解析終了 */
-#complete{
+#completeModal{
     display:none;
     position:fixed;
     top:0;
@@ -609,7 +724,7 @@ canvas,
     height:90px;
     margin:0 auto 25px;
     border-radius:50%;
-    background: #656464;
+    background:#656464;
     color:white;
     font-size:60px;
     line-height:90px;
@@ -622,21 +737,79 @@ canvas,
     font-size:28px;
 }
 
-#errorOk,
-#okButton{
+#completeOkButton{
     width:120px;
     height:45px;
     font-size:18px;
     border:2px solid black;
     border-radius:6px;
-    background: white;
+    background:white;
     color:black;
     cursor:pointer;
 }
 
-#okButton:hover{
-    background: #919191;
+#completeOkButton:hover{
+    background:#919191;
 }
+
+
+/* ====================================
+   解析中
+==================================== */
+
+#loadingModal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.65);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.loadingBox{
+    width:400px;
+    padding:35px;
+    background:white;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+.spinner{
+    width:80px;
+    height:80px;
+    border:10px solid #666;
+    border-top:10px solid #919191;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:auto;
+}
+
+.loadingBox p{
+    margin-top:25px;
+    color:#0b0b0b;
+    font-size:28px;
+    font-family:Arial, sans-serif;
+}
+
+@keyframes spin{
+    0%{
+        transform:rotate(0deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* ====================================
+   画面ロック
+==================================== */
 
 #screenLock{
     display:none;
@@ -648,14 +821,56 @@ canvas,
     background:rgba(0,0,0,0.5);
     z-index:5000;
 }
-#progress,
-#dipscale {
-    accent-color: #333;
+
+
+/* ====================================
+  ロックされた入力欄
+==================================== */
+
+#floor:disabled,
+#damping:disabled,
+#inputSeismicWave:disabled,
+.massInput:disabled,
+.stiffnessInput:disabled {
+
+   opacity: 0.3;
+
+   color: #666;
+
+   background-color: #f0f0f0;
+
+   border-color: #999;
+
+   cursor: not-allowed;
 }
 
-/* ==========================
+
+/* ====================================
+   再生中にロックされた入力欄
+==================================== */
+
+.playbackLocked select,
+.playbackLocked input {
+
+    opacity: 0.3;
+
+    color: #666;
+
+    background-color: #f0f0f0;
+
+    border-color: #999;
+
+    cursor: not-allowed;
+
+}
+
+
+
+
+/* ====================================
    スマホ表示
-========================== */
+==================================== */
+
 @media (max-width:768px){
 
     html,
@@ -673,12 +888,22 @@ canvas,
         box-sizing:border-box;
     }
 
+
+    /* --------------------------------
+       ヘッダー
+    -------------------------------- */
+
     #header{
         width:100%;
         height:60px;
         margin:0;
         padding:0 20px;
     }
+
+
+    /* --------------------------------
+       メニュー
+    -------------------------------- */
 
     #menu{
         position:absolute;
@@ -687,9 +912,11 @@ canvas,
         box-sizing:border-box;
     }
 
-    /* ==========================
+
+    /* --------------------------------
        メインコンテナ
-    ========================== */
+    -------------------------------- */
+
     .main-container{
         width:100%;
         max-width:100%;
@@ -699,9 +926,11 @@ canvas,
         display:block;
     }
 
-    /* ==========================
-       メイン
-    ========================== */
+
+    /* --------------------------------
+       メインコンテンツ
+    -------------------------------- */
+
     #content{
         width:100%;
         max-width:100%;
@@ -710,9 +939,15 @@ canvas,
         display:block;
     }
 
-    /* ==========================
-       Canvas
-    ========================== */
+
+    /* --------------------------------
+       キャンバス
+    -------------------------------- */
+
+    #canvasArea{
+        width:100%;
+    }
+
     canvas{
         display:block;
         width:70%;
@@ -721,18 +956,27 @@ canvas,
         margin:0 auto;
     }
 
-    /* ==========================
-       パラメータ全体
-    ========================== */
+
+    /* --------------------------------
+       パラメーター
+    -------------------------------- */
+
+    #parameterSection{
+        width:100%;
+        max-width:100%;
+    }
+
     .inputGroup{
         width:100%;
         max-width:100%;
         align-items:center;
     }
 
-    /* ==========================
+
+    /* --------------------------------
        階数・減衰定数
-    ========================== */
+    -------------------------------- */
+
     .paramBox{
         display:grid;
         grid-template-columns:80px 80px;
@@ -743,9 +987,11 @@ canvas,
         max-width:100%;
     }
 
-    /* ==========================
+
+    /* --------------------------------
        階ごとの入力欄
-    ========================== */
+    -------------------------------- */
+
     #floorParameterSection{
         width:100%;
         max-width:100%;
@@ -753,23 +999,26 @@ canvas,
         overflow-y:hidden;
     }
 
-    /*1Fの位置を階数・減衰定数の入力欄に合わせる*/
     #floorParameters{
         margin-left:calc(50% - 85px);
     }
 
-    /* ==========================
+
+    /* --------------------------------
        入力欄・セレクト
-    ========================== */
+    -------------------------------- */
+
     input,
     select{
         max-width:100%;
         box-sizing:border-box;
     }
 
-    /* ==========================
+
+    /* --------------------------------
        ページ切替ボタン
-    ========================== */
+    -------------------------------- */
+
     .pageButton{
         width:100%;
         max-width:100%;
@@ -777,4 +1026,5 @@ canvas,
     }
 
 }
+
 
