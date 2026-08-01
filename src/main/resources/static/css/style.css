@@ -308,7 +308,9 @@ canvas{
     height:35px;
     box-sizing:border-box;
     font-weight:bold;
+    font-size: 14px;
     text-align:center;
+    color: black;
     border:2px solid black;
 }
 
@@ -366,6 +368,8 @@ canvas{
     box-sizing:border-box;
     text-align:center;
     font-weight:bold;
+    font-size: 14px;
+    color: black;
     border:2px solid black;
 }
 
@@ -997,10 +1001,11 @@ button:disabled {
         text-align:center;
     }
 
-    /* 階数 */
-    #floor,
+    /* --------------------------------
+   階数・減衰定数
+-------------------------------- */
 
-        /* 減衰定数 */
+    #floor,
     #damping{
         width:80px !important;
         height:35px !important;
@@ -1014,8 +1019,13 @@ button:disabled {
         font-weight:bold !important;
 
         border:2px solid black !important;
+        border-radius:8px !important;
 
-        background:white;
+        background:white !important;
+        color:black !important;
+
+        appearance:none !important;
+        -webkit-appearance:none !important;
     }
 
 
@@ -1032,11 +1042,18 @@ button:disabled {
         padding:0 !important;
 
         text-align:center !important;
+        text-align-last:center !important;
+
         font-weight:bold !important;
 
         border:2px solid black !important;
+        border-radius:8px !important;
 
-        background:white;
+        background:white !important;
+        color:black !important;
+
+        appearance:none !important;
+        -webkit-appearance:none !important;
     }
 
 
