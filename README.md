@@ -9,6 +9,9 @@ https://demo-efe2.onrender.com/
 建物を複数の質点とばねでモデル化し、質量・剛性・減衰定数といった建物の条件と地震波を入力して地震応答解析を行うことで建物の揺れをアニメーションで確認できます。
 
 <img width="1122" height="692" alt="Image" src="https://github.com/user-attachments/assets/dbdf2d4f-4e8b-47ee-a60c-e69ec582ea8e" />
+<br>
+<br>
+<br>
 <img width="1197" height="837" alt="Image" src="https://github.com/user-attachments/assets/fd6af6e5-778b-4dbf-b665-ede696783ef1" />
 
 ## コンセプト
