@@ -12,7 +12,7 @@ https://demo-efe2.onrender.com/
 <br>
 <br>
 <br>
-<img width="1197" height="837" alt="Image" src="https://github.com/user-attachments/assets/fd6af6e5-778b-4dbf-b665-ede696783ef1" />
+<img width="1033" height="735" alt="Image" src="https://github.com/user-attachments/assets/48e15be9-d124-41fc-b06b-3c683bd1c8a6" />
 
 ## コンセプト
 ### 「ただ計算結果を出力する」でなく、「建物がどう揺れているのか」を可視化する
