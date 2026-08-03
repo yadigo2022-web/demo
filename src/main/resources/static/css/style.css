@@ -297,7 +297,7 @@ canvas{
 
 .paramBox{
     display:grid;
-    grid-template-columns:80px 80px;
+    grid-template-columns:100%;
     column-gap:15px;
     align-items:center;
     width:max-content;
@@ -837,13 +837,9 @@ button:disabled {
 .stiffnessInput:disabled {
 
    opacity: 0.3;
-
    color: #666;
-
    background-color: #f0f0f0;
-
    border-color: #999;
-
    cursor: not-allowed;
 }
 
@@ -856,13 +852,9 @@ button:disabled {
 .playbackLocked input {
 
     opacity: 0.3;
-
     color: #666;
-
     background-color: #f0f0f0;
-
     border-color: #999;
-
     cursor: not-allowed;
 
 }
@@ -1002,8 +994,8 @@ button:disabled {
     }
 
     /* --------------------------------
-   階数・減衰定数
--------------------------------- */
+    階数・減衰定数
+    -------------------------------- */
 
     #floor,
     #damping{
