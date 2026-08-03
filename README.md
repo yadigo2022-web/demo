@@ -8,7 +8,7 @@ https://demo-efe2.onrender.com/
 地震時における建物の挙動を、**Webブラウザ上で視覚的に確認できる地震応答解析アプリケーション**です。
 建物を複数の質点とばねでモデル化し、質量・剛性・減衰定数といった建物の条件と地震波を入力して地震応答解析を行うことで建物の揺れをアニメーションで確認できます。
 
-<img width="297" height="201" alt="Image" src="https://github.com/user-attachments/assets/60593167-7cae-461c-b05e-d7b4c8366809" />
+<img width="891" height="603" alt="Image" src="https://github.com/user-attachments/assets/60593167-7cae-461c-b05e-d7b4c8366809" />
 
 ## コンセプト
 ### 「ただ計算結果を出力する」でなく、「建物がどう揺れているのか」を可視化する
