@@ -208,7 +208,6 @@ canvas{
     gap:10px;
     padding-top:20px;
     margin:0 auto;
-    font-size: clamp(1px, 4vw, 20px); !important;
 }
 
 #parameterPageButton,
@@ -218,7 +217,6 @@ canvas{
     height:50px;
     background:white;
     border:2px solid black;
-    font-size: clamp(1px, 4vw, 20px); !important;
     font-weight:bold;
     color:black;
     cursor:pointer;
@@ -228,7 +226,6 @@ canvas{
     color:#c8c8c8;
     opacity:1;
     cursor:not-allowed;
-    font-size: clamp(1px, 4vw, 20px); !important;
 }
 
 #parameterPageButton.active,
@@ -236,7 +233,6 @@ canvas{
 #resultPageButton.active{
     background:#555;
     color:white;
-    font-size: clamp(1px, 4vw, 20px); !important;
 }
 
 
@@ -297,7 +293,7 @@ canvas{
 
 .paramBox{
     display:grid;
-    grid-template-columns:100%;
+    grid-template-columns:80px 80px;
     column-gap:15px;
     align-items:center;
     width:max-content;
@@ -316,9 +312,9 @@ canvas{
     height:35px;
     box-sizing:border-box;
     font-weight:bold;
-    font-size: 14px;
+    font-size:14px;
     text-align:center;
-    color: black;
+    color:black;
     border:2px solid black;
 }
 
